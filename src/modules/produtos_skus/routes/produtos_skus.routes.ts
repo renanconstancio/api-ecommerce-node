@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import ProdutosController from '../controllers/ProdutosSkusController';
+import ProdutosSkuController from '../controllers/ProdutosSkusController';
 
-const produtosSukusRouter = Router();
-const produtosSkusController = new ProdutosController();
+const produtosSkusRouter = Router();
+const produtosSkusController = new ProdutosSkuController();
 
-produtosSukusRouter.get('/', produtosSkusController.index);
+produtosSkusRouter.get('/', produtosSkusController.index);
 
-produtosSukusRouter.get(
+produtosSkusRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
@@ -17,7 +17,7 @@ produtosSukusRouter.get(
   produtosSkusController.show,
 );
 
-produtosSukusRouter.post(
+produtosSkusRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -40,7 +40,7 @@ produtosSukusRouter.post(
   produtosSkusController.create,
 );
 
-produtosSukusRouter.put(
+produtosSkusRouter.put(
   '/:id',
   celebrate({
     [Segments.BODY]: {
@@ -66,7 +66,7 @@ produtosSukusRouter.put(
   produtosSkusController.update,
 );
 
-produtosSukusRouter.delete(
+produtosSkusRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
@@ -76,4 +76,4 @@ produtosSukusRouter.delete(
   produtosSkusController.delete,
 );
 
-export default produtosSukusRouter;
+export default produtosSkusRouter;
