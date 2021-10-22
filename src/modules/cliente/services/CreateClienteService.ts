@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import Cliente from '../typeorm/entities/Cliente';
 import ClienteRepository from '../typeorm/repositories/ClienteRepository';
 import { classToClass } from 'class-transformer';
+import { hash } from 'bcryptjs';
 
 interface IRequest {
   nome: string;
@@ -43,10 +44,12 @@ class CreateClienteService {
       throw new AppError(`Já existe um e-mail cadastrado com ${email}`);
     }
 
+    const senhaHash = await hash(senha, 8);
+
     const cliente = clientesRepository.create({
       nome,
       email,
-      senha,
+      senha: senhaHash,
       cnpj,
       ie,
       cpf,
