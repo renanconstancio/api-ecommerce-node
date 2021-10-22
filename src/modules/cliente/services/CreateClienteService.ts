@@ -1,0 +1,68 @@
+import AppError from '@shared/errors/AppError';
+import { getCustomRepository } from 'typeorm';
+import Cliente from '../typeorm/entities/Cliente';
+import ClienteRepository from '../typeorm/repositories/ClienteRepository';
+import { classToClass } from 'class-transformer';
+
+interface IRequest {
+  nome: string;
+  email: string;
+  senha: string;
+  cnpj: string;
+  ie: string;
+  cpf: string;
+  rg: string;
+  telefone: string;
+  celular: string;
+  operadora: string;
+  nascim?: Date;
+  admin?: boolean;
+  excluir?: boolean;
+}
+
+class CreateClienteService {
+  public async execute({
+    nome,
+    email,
+    senha,
+    cnpj,
+    ie,
+    cpf,
+    rg,
+    telefone,
+    celular,
+    operadora,
+    nascim,
+    admin = false,
+    excluir = false,
+  }: IRequest): Promise<Cliente> {
+    const clientesRepository = getCustomRepository(ClienteRepository);
+    const emailExists = await clientesRepository.findByEmail(email);
+
+    if (emailExists) {
+      throw new AppError(`Já existe um e-mail cadastrado com ${email}`);
+    }
+
+    const cliente = clientesRepository.create({
+      nome,
+      email,
+      senha,
+      cnpj,
+      ie,
+      cpf,
+      rg,
+      telefone,
+      celular,
+      operadora,
+      nascim,
+      admin,
+      excluir,
+    });
+
+    await clientesRepository.save(cliente);
+
+    return classToClass(cliente);
+  }
+}
+
+export default CreateClienteService;
