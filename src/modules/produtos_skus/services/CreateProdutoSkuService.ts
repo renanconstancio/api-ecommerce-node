@@ -1,4 +1,3 @@
-// import redisCache from '@shared/cache/RedisCache';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import ProdutoSkuRepository from '../typeorm/repositories/ProdutoSkuRepository';
