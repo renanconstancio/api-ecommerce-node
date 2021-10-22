@@ -6,40 +6,62 @@
 - [x] Query stringa para uma busca mais avançada
 
 ```
-{
-  "from": 1,
-  "to": 1,
-  "per_page": 15,
-  "total": 1,
-  "current_page": 1,
-  "prev_page": null,
-  "next_page": null,
-  "last_page": 1,
-  "data": [
-    {
-      "id": 1,
-      "nome": "Renan Henrique",
-      "email": "renan@dcisuporte.com.br",
-      "cnpj": "",
-      "ie": "",
-      "cpf": "",
-      "rg": "",
-      "telefone": "1632621365",
-      "celular": "",
-      "operadora": "",
-      "nascim": null,
-      "admin": false,
-      "created_at": null,
-      "updated_at": null
-    }
-  ]
-}
+*
+  {
+    "from": 1,
+    "to": 1,
+    "per_page": 15,
+    "total": 1,
+    "current_page": 1,
+    "prev_page": null,
+    "next_page": null,
+    "last_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "nome": "Nome do Cliente",
+        "email": "email@docliente.com.br",
+        "cnpj": "123123123",
+        "ie": "123123123",
+        "cpf": "123123123",
+        "rg": "123123123",
+        "telefone": "123123123",
+        "celular": "123123123",
+        "operadora": "operadora",
+        "nascim": "00/00/0000",
+        "admin": 0,
+        "created_at": null,
+        "updated_at": null
+      }
+    ]
+  }
+*
 ```
 
 ### [GET]/v1/clientes/:id
 
 - [x] lista apenas um unico cliente da lista
 - [x] Query stringa para uma busca mais avançada
+
+```
+{
+"id": 1,
+"nome": "Nome do Cliente",
+"email": "email@docliente.com.br",
+"cnpj": "123123123",
+"ie": "123123123",
+"cpf": "123123123",
+"rg": "123123123",
+"telefone": "123123123",
+"celular": "123123123",
+"operadora": "operadora",
+"nascim": "00/00/0000",
+"admin": 0,
+"created_at": null,
+"updated_at": null
+}
+
+```
 
 ### [POST] /v1/clientes
 
@@ -52,7 +74,3 @@
 - [x] alterações dos dados do cliente
 
 ## [DELETE] /v1/
-
-```
-
-```
