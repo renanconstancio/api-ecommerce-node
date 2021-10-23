@@ -22,6 +22,8 @@ export default function isAuthenticated(
   // Bearer sdlkfjsldkfjlsjfffdklfjdflksjflkjfdlk3405905
   const [, token] = authHeader.split(' ');
 
+  // console.log('%O', token);
+
   try {
     const decodedToken = verify(token, authConfig.jwt.secret as Secret);
 
