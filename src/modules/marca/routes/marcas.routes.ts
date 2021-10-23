@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import MarcasController from '../controllers/MarcasController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import MarcasController from '../controllers/MarcasController';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const marcasRouter = Router();
 const marcasController = new MarcasController();
+
+marcasRouter.use(isAuthenticated);
 
 marcasRouter.get('/', marcasController.index);
 
