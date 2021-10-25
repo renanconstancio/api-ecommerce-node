@@ -7,8 +7,18 @@ interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  connect: string;
+  id: string;
 }
 
+/**
+ * Class para verificacao do usuario authenticado
+ * NOTA:
+ * @param request Request
+ * @param response Response
+ * @param next NexFunction
+ * @returns Dados de connection e de usuario
+ */
 export default function isAuthenticated(
   request: Request,
   response: Response,
@@ -19,18 +29,21 @@ export default function isAuthenticated(
   if (!authHeader) {
     throw new AppError('JWT Token is missing.');
   }
+
   // Bearer sdlkfjsldkfjlsjfffdklfjdflksjflkjfdlk3405905
   const [, token] = authHeader.split(' ');
-
-  // console.log('%O', token);
 
   try {
     const decodedToken = verify(token, authConfig.jwt.secret as Secret);
 
-    const { sub } = decodedToken as ITokenPayload;
+    const decode = decodedToken as ITokenPayload;
 
+    // Adicionar um paramentro de conexao dentro do express
+    request.connect = decode.connect;
+
+    // Adicionar um paramentro de usuario dentro do express
     request.user = {
-      id: sub,
+      id: decode.id,
     };
 
     return next();

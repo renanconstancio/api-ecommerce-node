@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import usersRouter from '@modules/users/routes/users.routes';
+import tokenStoreRouter from '@modules/tokens_stores/routes/tokens_stores.routes';
 import marcasRouter from '@modules/marca/routes/marcas.routes';
 import clientesRouter from '@modules/cliente/routes/clientes.routes';
 import clientesEnderecosRouter from '@modules/cliente_endereco/routes/clientes_enderecos.routes';
@@ -7,6 +9,12 @@ import produtoSkusRouter from '@modules/produtos_skus/routes/produtos_skus.route
 import produtoImgsRouter from '@modules/produtos_imgs/routes/produtos_imgs.routes';
 
 const routes = Router();
+
+// authenticate all stores
+routes.use('/v1/authstore', tokenStoreRouter);
+
+// authenticate user
+routes.use('/v1/auth', usersRouter);
 
 routes.use('/v1/marcas', marcasRouter);
 
