@@ -13,15 +13,18 @@ interface IRequest {
 }
 
 class UpdateMarcaService {
-  public async execute({
-    id,
-    cod,
-    marca,
-    postagem = '',
-    visivel = true,
-    excluir = false,
-  }: IRequest): Promise<Marca> {
-    const marcasRepository = getCustomRepository(MarcaRepository);
+  public async execute(
+    {
+      id,
+      cod,
+      marca,
+      postagem = '',
+      visivel = true,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<Marca> {
+    const marcasRepository = getCustomRepository(MarcaRepository, connect);
 
     const marcaRes = await marcasRepository.findOne(id);
 

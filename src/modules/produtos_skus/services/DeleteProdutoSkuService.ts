@@ -7,8 +7,8 @@ interface IRequest {
 }
 
 class DeleteProdutoSkuService {
-  public async execute({ id }: IRequest): Promise<void> {
-    const skusRepository = getCustomRepository(ProdutoSkuRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<void> {
+    const skusRepository = getCustomRepository(ProdutoSkuRepository, connect);
 
     const sku = await skusRepository.findOne(id);
 

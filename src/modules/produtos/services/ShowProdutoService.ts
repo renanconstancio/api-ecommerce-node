@@ -8,8 +8,8 @@ interface IRequest {
 }
 
 class ShowProdutoService {
-  public async execute({ id }: IRequest): Promise<Produto> {
-    const produtosRepository = getCustomRepository(ProdutoRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<Produto> {
+    const produtosRepository = getCustomRepository(ProdutoRepository, connect);
 
     const produto = await produtosRepository.findOne(id);
 

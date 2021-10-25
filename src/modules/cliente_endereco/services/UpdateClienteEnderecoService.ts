@@ -21,23 +21,29 @@ interface IRequest {
 }
 
 class UpdateClienteEnderecoService {
-  public async execute({
-    id,
-    id_clientes,
-    nome_endereco,
-    nome_recebedor,
-    endereco,
-    nr,
-    bairro,
-    complemento,
-    referencia,
-    cidade,
-    uf,
-    cep,
-    ativo = true,
-    excluir = false,
-  }: IRequest): Promise<ClienteEndereco> {
-    const enderecosRepository = getCustomRepository(ClienteEndercoRepository);
+  public async execute(
+    {
+      id,
+      id_clientes,
+      nome_endereco,
+      nome_recebedor,
+      endereco,
+      nr,
+      bairro,
+      complemento,
+      referencia,
+      cidade,
+      uf,
+      cep,
+      ativo = true,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<ClienteEndereco> {
+    const enderecosRepository = getCustomRepository(
+      ClienteEndercoRepository,
+      connect,
+    );
 
     const cliEnderecos = await enderecosRepository.findOne(id);
 

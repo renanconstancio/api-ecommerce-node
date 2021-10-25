@@ -22,23 +22,26 @@ interface IRequest {
 }
 
 class CreateProdutoService {
-  public async execute({
-    id_marcas,
-    nome,
-    subnome,
-    descricao,
-    postagem,
-    ncm,
-    csosn,
-    cfop,
-    cest,
-    cst,
-    unid,
-    ativo = true,
-    visivel = true,
-    excluir = false,
-  }: IRequest): Promise<Produto> {
-    const produtosRepository = getCustomRepository(ProdutoRepository);
+  public async execute(
+    {
+      id_marcas,
+      nome,
+      subnome,
+      descricao,
+      postagem,
+      ncm,
+      csosn,
+      cfop,
+      cest,
+      cst,
+      unid,
+      ativo = true,
+      visivel = true,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<Produto> {
+    const produtosRepository = getCustomRepository(ProdutoRepository, connect);
     const nomeExists = await produtosRepository.findByName(nome);
 
     if (nomeExists) {

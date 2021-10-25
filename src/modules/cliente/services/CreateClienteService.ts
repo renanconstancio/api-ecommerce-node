@@ -22,22 +22,25 @@ interface IRequest {
 }
 
 class CreateClienteService {
-  public async execute({
-    nome,
-    email,
-    senha,
-    cnpj,
-    ie,
-    cpf,
-    rg,
-    telefone,
-    celular,
-    operadora,
-    nascim,
-    admin = false,
-    excluir = false,
-  }: IRequest): Promise<Cliente> {
-    const clientesRepository = getCustomRepository(ClienteRepository);
+  public async execute(
+    {
+      nome,
+      email,
+      senha,
+      cnpj,
+      ie,
+      cpf,
+      rg,
+      telefone,
+      celular,
+      operadora,
+      nascim,
+      admin = false,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<Cliente> {
+    const clientesRepository = getCustomRepository(ClienteRepository, connect);
     const emailExists = await clientesRepository.findByEmail(email);
 
     if (emailExists) {

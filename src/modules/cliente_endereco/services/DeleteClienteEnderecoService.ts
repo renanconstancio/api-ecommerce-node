@@ -7,8 +7,11 @@ interface IRequest {
 }
 
 class DeleteClienteEnderecoService {
-  public async execute({ id }: IRequest): Promise<void> {
-    const enderecosRepository = getCustomRepository(ClienteEndercoRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<void> {
+    const enderecosRepository = getCustomRepository(
+      ClienteEndercoRepository,
+      connect,
+    );
 
     const endereco = await enderecosRepository.findOne(id);
 

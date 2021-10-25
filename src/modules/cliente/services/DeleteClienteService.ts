@@ -7,8 +7,8 @@ interface IRequest {
 }
 
 class DeleteClienteService {
-  public async execute({ id }: IRequest): Promise<void> {
-    const clientesRepository = getCustomRepository(ClienteRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<void> {
+    const clientesRepository = getCustomRepository(ClienteRepository, connect);
 
     const cliente = await clientesRepository.findOne(id);
 

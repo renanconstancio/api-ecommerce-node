@@ -14,9 +14,10 @@ interface IPaginateClienteEndereco {
 }
 
 class ListClienteEnderecoService {
-  public async execute(): Promise<IPaginateClienteEndereco> {
+  public async execute(connect: string): Promise<IPaginateClienteEndereco> {
     const clientesEndercosRepository = getCustomRepository(
       ClienteEndercoRepository,
+      connect,
     );
 
     // const redisCache = new RedisCache();

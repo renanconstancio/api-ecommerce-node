@@ -20,11 +20,11 @@ interface ISearch {
 }
 
 class ListProdutoSkuService {
-  public async execute({
-    sku,
-    order_sku,
-  }: ISearch): Promise<IPaginateProdutoSku> {
-    const skusRepository = getCustomRepository(ProdutoRepository);
+  public async execute(
+    { sku, order_sku }: ISearch,
+    connect: string,
+  ): Promise<IPaginateProdutoSku> {
+    const skusRepository = getCustomRepository(ProdutoRepository, connect);
 
     const tmp = skusRepository
       .createQueryBuilder()

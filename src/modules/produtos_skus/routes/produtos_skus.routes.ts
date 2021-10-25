@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import ProdutosSkuController from '../controllers/ProdutosSkusController';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const produtosSkusRouter = Router();
 const produtosSkusController = new ProdutosSkuController();
+
+produtosSkusRouter.use(isAuthenticated);
 
 produtosSkusRouter.get('/', produtosSkusController.index);
 

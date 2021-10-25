@@ -21,23 +21,26 @@ interface IRequest {
 }
 
 class CreateProdutoSkuService {
-  public async execute({
-    id_produtos,
-    skus,
-    codigo,
-    codigo_barras,
-    referencia,
-    estoque,
-    preco_custo,
-    preco_venda,
-    preco_promo,
-    altura,
-    largura,
-    comprimento,
-    peso,
-    excluir = false,
-  }: IRequest): Promise<ProdutoSku> {
-    const skusRepository = getCustomRepository(ProdutoSkuRepository);
+  public async execute(
+    {
+      id_produtos,
+      skus,
+      codigo,
+      codigo_barras,
+      referencia,
+      estoque,
+      preco_custo,
+      preco_venda,
+      preco_promo,
+      altura,
+      largura,
+      comprimento,
+      peso,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<ProdutoSku> {
+    const skusRepository = getCustomRepository(ProdutoSkuRepository, connect);
     const skusExists = await skusRepository.findBySku(skus);
 
     if (skusExists) {

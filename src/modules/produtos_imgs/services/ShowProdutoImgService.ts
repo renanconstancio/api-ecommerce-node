@@ -8,8 +8,8 @@ interface IRequest {
 }
 
 class ShowProdutoImgService {
-  public async execute({ id }: IRequest): Promise<ProdutoImg> {
-    const imagesRepository = getCustomRepository(ProdutoImgRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<ProdutoImg> {
+    const imagesRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const image = await imagesRepository.findOne(id);
 

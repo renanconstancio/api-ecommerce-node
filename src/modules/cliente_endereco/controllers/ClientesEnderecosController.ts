@@ -8,21 +8,29 @@ import DeleteClienteEnderecoService from '../services/DeleteClienteEnderecoServi
 
 export default class ClientesEnderecosController {
   public async index(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
     const listEnderecos = new ListClienteEnderecoService();
-    const enderecos = await listEnderecos.execute();
+    const enderecos = await listEnderecos.execute(connect);
 
     return response.json(classToClass(enderecos));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const { id } = request.params;
     const showEnderecos = new ShowClienteEnderecoService();
-    const enderecos = await showEnderecos.execute({ id });
+    const enderecos = await showEnderecos.execute({ id }, connect);
 
     return response.json(classToClass(enderecos));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const {
       id_clientes,
       nome_endereco,
@@ -39,25 +47,31 @@ export default class ClientesEnderecosController {
       excluir,
     } = request.body;
     const createCliente = new CreateClienteEnderecoService();
-    const cliente = await createCliente.execute({
-      id_clientes,
-      nome_endereco,
-      nome_recebedor,
-      endereco,
-      nr,
-      bairro,
-      complemento,
-      referencia,
-      cidade,
-      uf,
-      cep,
-      ativo,
-      excluir,
-    });
+    const cliente = await createCliente.execute(
+      {
+        id_clientes,
+        nome_endereco,
+        nome_recebedor,
+        endereco,
+        nr,
+        bairro,
+        complemento,
+        referencia,
+        cidade,
+        uf,
+        cep,
+        ativo,
+        excluir,
+      },
+      connect,
+    );
     return response.json(cliente);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const {
       id_clientes,
       nome_endereco,
@@ -75,30 +89,36 @@ export default class ClientesEnderecosController {
     } = request.body;
     const { id } = request.params;
     const updateProduct = new UpdateClienteEnderecoService();
-    const product = await updateProduct.execute({
-      id,
-      id_clientes,
-      nome_endereco,
-      nome_recebedor,
-      endereco,
-      nr,
-      bairro,
-      complemento,
-      referencia,
-      cidade,
-      uf,
-      cep,
-      ativo,
-      excluir,
-    });
+    const product = await updateProduct.execute(
+      {
+        id,
+        id_clientes,
+        nome_endereco,
+        nome_recebedor,
+        endereco,
+        nr,
+        bairro,
+        complemento,
+        referencia,
+        cidade,
+        uf,
+        cep,
+        ativo,
+        excluir,
+      },
+      connect,
+    );
     return response.json(product);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const { id } = request.params;
     const deleteMarca = new DeleteClienteEnderecoService();
 
-    await deleteMarca.execute({ id });
+    await deleteMarca.execute({ id }, connect);
 
     return response.json([]);
   }

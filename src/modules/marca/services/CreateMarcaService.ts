@@ -13,14 +13,11 @@ interface IRequest {
 }
 
 class CreateMarcaService {
-  public async execute({
-    cod,
-    marca,
-    postagem,
-    visivel = true,
-    excluir = false,
-  }: IRequest): Promise<Marca> {
-    const marcasRepository = getCustomRepository(MarcaRepository);
+  public async execute(
+    { cod, marca, postagem, visivel = true, excluir = false }: IRequest,
+    connect: string,
+  ): Promise<Marca> {
+    const marcasRepository = getCustomRepository(MarcaRepository, connect);
     const codExists = await marcasRepository.findByCod(cod);
 
     if (codExists) {

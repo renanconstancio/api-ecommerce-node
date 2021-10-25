@@ -8,8 +8,8 @@ interface IRequest {
 }
 
 class ShowMarcaService {
-  public async execute({ id }: IRequest): Promise<Marca> {
-    const marcasRepository = getCustomRepository(MarcaRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<Marca> {
+    const marcasRepository = getCustomRepository(MarcaRepository, connect);
 
     const marca = await marcasRepository.findOne(id);
 

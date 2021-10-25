@@ -22,45 +22,33 @@ interface IRequest {
 }
 
 class UpdateProdutoService {
-  public async execute({
-    id,
-    id_marcas,
-    nome,
-    subnome,
-    descricao,
-    postagem,
-    ncm,
-    csosn,
-    cfop,
-    cest,
-    cst,
-    unid,
-    ativo = true,
-    visivel = true,
-    excluir = false,
-  }: IRequest): Promise<Produto> {
-    const produtosRepository = getCustomRepository(ProdutoRepository);
+  public async execute(
+    {
+      id,
+      id_marcas,
+      nome,
+      subnome,
+      descricao,
+      postagem,
+      ncm,
+      csosn,
+      cfop,
+      cest,
+      cst,
+      unid,
+      ativo = true,
+      visivel = true,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<Produto> {
+    const produtosRepository = getCustomRepository(ProdutoRepository, connect);
 
     const produto = await produtosRepository.findOne(id);
 
     if (!produto) {
       throw new AppError('Produtos not found.');
     }
-
-    // produto.id_marcas = id_marcas;
-    // produto.nome = nome;
-    // produto.subnome = subnome;
-    // produto.descricao = descricao;
-    // produto.postagem = postagem;
-    // produto.ncm = ncm;
-    // produto.csosn = csosn;
-    // produto.cfop = cfop;
-    // produto.cest = cest;
-    // produto.cst = cst;
-    // produto.unid = unid;
-    // produto.ativo = ativo;
-    // produto.visivel = visivel;
-    // produto.excluir = excluir;
 
     produtosRepository.merge(produto, {
       id_marcas: id_marcas,

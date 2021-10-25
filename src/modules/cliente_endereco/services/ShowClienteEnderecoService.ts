@@ -9,8 +9,14 @@ interface IRequest {
 }
 
 class ShowClienteEnderecoService {
-  public async execute({ id }: IRequest): Promise<ClienteEndereco> {
-    const enderecosRepository = getCustomRepository(ClienteEndercoRepository);
+  public async execute(
+    { id }: IRequest,
+    connect: string,
+  ): Promise<ClienteEndereco> {
+    const enderecosRepository = getCustomRepository(
+      ClienteEndercoRepository,
+      connect,
+    );
 
     const endereco = await enderecosRepository.findOne(id);
 

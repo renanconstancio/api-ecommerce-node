@@ -8,23 +8,33 @@ import { classToClass } from 'class-transformer';
 
 export default class ProdutosController {
   public async index(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const { nome, order_nome } = request.query;
 
     const listProdutos = new ListProdutoService();
-    const produtos = await listProdutos.execute({ nome, order_nome });
+    const produtos = await listProdutos.execute({ nome, order_nome }, connect);
 
     return response.json(classToClass(produtos));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const { id } = request.params;
+
     const showProduct = new ShowProdutoService();
-    const produto = await showProduct.execute({ id });
+    const produto = await showProduct.execute({ id }, connect);
 
     return response.json(classToClass(produto));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const {
       id_marcas,
       nome,
@@ -42,26 +52,32 @@ export default class ProdutosController {
       excluir,
     } = request.body;
     const createProduto = new CreateProdutoService();
-    const marcaResp = await createProduto.execute({
-      id_marcas,
-      nome,
-      subnome,
-      descricao,
-      postagem,
-      ncm,
-      csosn,
-      cfop,
-      cest,
-      cst,
-      unid,
-      ativo,
-      visivel,
-      excluir,
-    });
+    const marcaResp = await createProduto.execute(
+      {
+        id_marcas,
+        nome,
+        subnome,
+        descricao,
+        postagem,
+        ncm,
+        csosn,
+        cfop,
+        cest,
+        cst,
+        unid,
+        ativo,
+        visivel,
+        excluir,
+      },
+      connect,
+    );
     return response.json(classToClass(marcaResp));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const {
       id_marcas,
       nome,
@@ -80,31 +96,37 @@ export default class ProdutosController {
     } = request.body;
     const { id } = request.params;
     const updateProduto = new UpdateProdutoService();
-    const produtos = await updateProduto.execute({
-      id,
-      id_marcas,
-      nome,
-      subnome,
-      descricao,
-      postagem,
-      ncm,
-      csosn,
-      cfop,
-      cest,
-      cst,
-      unid,
-      ativo,
-      visivel,
-      excluir,
-    });
+    const produtos = await updateProduto.execute(
+      {
+        id,
+        id_marcas,
+        nome,
+        subnome,
+        descricao,
+        postagem,
+        ncm,
+        csosn,
+        cfop,
+        cest,
+        cst,
+        unid,
+        ativo,
+        visivel,
+        excluir,
+      },
+      connect,
+    );
     return response.json(classToClass(produtos));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
+
     const { id } = request.params;
     const deleteProduto = new DeleteProdutoService();
 
-    await deleteProduto.execute({ id });
+    await deleteProduto.execute({ id }, connect);
 
     return response.json([]);
   }

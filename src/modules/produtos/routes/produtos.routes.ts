@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import ProdutosController from '../controllers/ProdutosController';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const produtosRouter = Router();
 const produtosController = new ProdutosController();
+
+produtosRouter.use(isAuthenticated);
 
 produtosRouter.get('/', produtosController.index);
 

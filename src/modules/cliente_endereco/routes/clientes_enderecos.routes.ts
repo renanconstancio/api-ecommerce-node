@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import ClientesEnderecosController from '../controllers/ClientesEnderecosController';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const clientesEnderecosRouter = Router();
 const clientesEnderecosController = new ClientesEnderecosController();
+
+clientesEnderecosRouter.use(isAuthenticated);
 
 clientesEnderecosRouter.get('/', clientesEnderecosController.index);
 

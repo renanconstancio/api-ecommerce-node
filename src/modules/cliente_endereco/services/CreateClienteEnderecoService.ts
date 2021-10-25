@@ -21,23 +21,27 @@ interface IRequest {
 }
 
 class CreateClienteEnderecoService {
-  public async execute({
-    id_clientes,
-    nome_endereco,
-    nome_recebedor,
-    endereco,
-    nr,
-    bairro,
-    complemento,
-    referencia,
-    cidade,
-    uf,
-    cep,
-    ativo = true,
-    excluir = false,
-  }: IRequest): Promise<ClienteEndereco> {
+  public async execute(
+    {
+      id_clientes,
+      nome_endereco,
+      nome_recebedor,
+      endereco,
+      nr,
+      bairro,
+      complemento,
+      referencia,
+      cidade,
+      uf,
+      cep,
+      ativo = true,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<ClienteEndereco> {
     const clienteEnderecoRepository = getCustomRepository(
       ClienteEndercoRepository,
+      connect,
     );
 
     if (!id_clientes) {

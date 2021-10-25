@@ -9,8 +9,8 @@ interface IRequest {
 }
 
 class ShowClienteService {
-  public async execute({ id }: IRequest): Promise<Cliente> {
-    const clientesRepository = getCustomRepository(ClienteRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<Cliente> {
+    const clientesRepository = getCustomRepository(ClienteRepository, connect);
 
     const cliente = await clientesRepository.findOne(id);
 

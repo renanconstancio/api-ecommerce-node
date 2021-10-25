@@ -20,11 +20,11 @@ interface ISearch {
 }
 
 class ListProdutoService {
-  public async execute({
-    nome,
-    order_nome,
-  }: ISearch): Promise<IPaginateProduto> {
-    const produtosRepository = getCustomRepository(ProdutoRepository);
+  public async execute(
+    { nome, order_nome }: ISearch,
+    connect: string,
+  ): Promise<IPaginateProduto> {
+    const produtosRepository = getCustomRepository(ProdutoRepository, connect);
 
     const tmp = produtosRepository
       .createQueryBuilder()

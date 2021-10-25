@@ -21,12 +21,11 @@ interface ISearch {
 }
 
 class ListMarcaService {
-  public async execute({
-    marca,
-    cod,
-    order = 'ASC',
-  }: ISearch): Promise<IPaginateMarca> {
-    const marcasRepository = getCustomRepository(MarcaRepository);
+  public async execute(
+    { marca, cod, order = 'ASC' }: ISearch,
+    connect: string,
+  ): Promise<IPaginateMarca> {
+    const marcasRepository = getCustomRepository(MarcaRepository, connect);
 
     const tmp = marcasRepository
       .createQueryBuilder()

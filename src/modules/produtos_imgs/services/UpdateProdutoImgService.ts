@@ -13,15 +13,18 @@ interface IRequest {
 }
 
 class UpdateProdutoImgService {
-  public async execute({
-    id,
-    id_produtos,
-    id_produtos_skus,
-    image,
-    ordem,
-    excluir = false,
-  }: IRequest): Promise<ProdutoImg> {
-    const imageRepository = getCustomRepository(ProdutoImgRepository);
+  public async execute(
+    {
+      id,
+      id_produtos,
+      id_produtos_skus,
+      image,
+      ordem,
+      excluir = false,
+    }: IRequest,
+    connect: string,
+  ): Promise<ProdutoImg> {
+    const imageRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const images = await imageRepository.findOne(id);
 

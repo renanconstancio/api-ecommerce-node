@@ -8,21 +8,25 @@ import { classToClass } from 'class-transformer';
 
 export default class ClientesController {
   public async index(request: Request, response: Response): Promise<Response> {
+    // string de conexão
+    const connect = request.connect;
     const listClientes = new ListClienteService();
-    const clientes = await listClientes.execute();
+    const clientes = await listClientes.execute(connect);
 
     return response.json(classToClass(clientes));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
+    const connect = request.connect;
     const { id } = request.params;
     const showCliente = new ShowClienteService();
-    const cliente = await showCliente.execute({ id });
+    const cliente = await showCliente.execute({ id }, connect);
 
     return response.json(classToClass(cliente));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
+    const connect = request.connect;
     const {
       nome,
       email,
@@ -39,25 +43,29 @@ export default class ClientesController {
       excluir,
     } = request.body;
     const createCliente = new CreateClienteService();
-    const cliente = await createCliente.execute({
-      nome,
-      email,
-      senha,
-      cnpj,
-      ie,
-      cpf,
-      rg,
-      telefone,
-      celular,
-      operadora,
-      nascim,
-      admin,
-      excluir,
-    });
+    const cliente = await createCliente.execute(
+      {
+        nome,
+        email,
+        senha,
+        cnpj,
+        ie,
+        cpf,
+        rg,
+        telefone,
+        celular,
+        operadora,
+        nascim,
+        admin,
+        excluir,
+      },
+      connect,
+    );
     return response.json(cliente);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const connect = request.connect;
     const {
       nome,
       email,
@@ -75,30 +83,34 @@ export default class ClientesController {
     } = request.body;
     const { id } = request.params;
     const updateProduct = new UpdateClienteService();
-    const product = await updateProduct.execute({
-      id,
-      nome,
-      email,
-      senha,
-      cnpj,
-      ie,
-      cpf,
-      rg,
-      telefone,
-      celular,
-      operadora,
-      nascim,
-      admin,
-      excluir,
-    });
+    const product = await updateProduct.execute(
+      {
+        id,
+        nome,
+        email,
+        senha,
+        cnpj,
+        ie,
+        cpf,
+        rg,
+        telefone,
+        celular,
+        operadora,
+        nascim,
+        admin,
+        excluir,
+      },
+      connect,
+    );
     return response.json(product);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
+    const connect = request.connect;
     const { id } = request.params;
     const deleteMarca = new DeleteClienteService();
 
-    await deleteMarca.execute({ id });
+    await deleteMarca.execute({ id }, connect);
 
     return response.json([]);
   }

@@ -11,14 +11,11 @@ interface IRequest {
 }
 
 class CreateProdutoImgService {
-  public async execute({
-    id_produtos,
-    id_produtos_skus,
-    image,
-    ordem,
-    excluir = false,
-  }: IRequest): Promise<ProdutoImg> {
-    const imgsRepository = getCustomRepository(ProdutoImgRepository);
+  public async execute(
+    { id_produtos, id_produtos_skus, image, ordem, excluir = false }: IRequest,
+    connect: string,
+  ): Promise<ProdutoImg> {
+    const imgsRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const sku = imgsRepository.create({
       id_produtos,

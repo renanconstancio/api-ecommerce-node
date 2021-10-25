@@ -14,8 +14,8 @@ interface IPaginateCliente {
 }
 
 class ListClienteService {
-  public async execute(): Promise<IPaginateCliente> {
-    const clientesRepository = getCustomRepository(ClienteRepository);
+  public async execute(connect: string): Promise<IPaginateCliente> {
+    const clientesRepository = getCustomRepository(ClienteRepository, connect);
 
     // const redisCache = new RedisCache();
     // const marcas = await redisCache.recover<IPaginateCliente>('api-MARCA_LIST');

@@ -14,8 +14,8 @@ interface IPaginateProdutoIma {
 }
 
 class ListProdutoImgService {
-  public async execute(): Promise<IPaginateProdutoIma> {
-    const skusRepository = getCustomRepository(ProdutoImgRepository);
+  public async execute(connect: string): Promise<IPaginateProdutoIma> {
+    const skusRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const tmp = skusRepository
       .createQueryBuilder()

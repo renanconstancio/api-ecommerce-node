@@ -7,8 +7,8 @@ interface IRequest {
 }
 
 class DeleteProdutoImgService {
-  public async execute({ id }: IRequest): Promise<void> {
-    const imgsRepository = getCustomRepository(ProdutoImgRepository);
+  public async execute({ id }: IRequest, connect: string): Promise<void> {
+    const imgsRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const image = await imgsRepository.findOne(id);
 
