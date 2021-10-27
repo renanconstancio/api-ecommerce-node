@@ -1,6 +1,12 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-import express, { NextFunction, Request, Response } from 'express';
+import express, {
+  NextFunction,
+  request,
+  Request,
+  response,
+  Response,
+} from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import { errors } from 'celebrate';
@@ -92,6 +98,10 @@ app.use(
     });
   },
 );
+
+app.use('/', (request, response) => {
+  return response.status(200).json('Server started');
+});
 
 app.listen(3333, () => {
   console.log('Server started on port 3333! 🏆');
