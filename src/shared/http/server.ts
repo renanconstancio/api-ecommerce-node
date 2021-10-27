@@ -9,7 +9,7 @@ import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/typeorm';
 
-// import uploadConfig from '@config/upload';
+import uploadConfig from '@config/upload';
 // import rateLimiter from '@shared/http/middlewares/rateLimiter';
 
 const app = express();
@@ -21,12 +21,13 @@ app.use(express.json());
 
 app.use(pagination);
 
-// app.use('/files', express.static(uploadConfig.directory));
+app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use(errors());
 
 app.use(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     // if (isCelebrateError(error)) {
     //   let celebrate_error = null;
@@ -69,6 +70,13 @@ app.use(
     //   });
     // }
 
+    // if (error instanceof multer.MulterError) {
+    //   return response.status(401).json({
+    //     status: 'error',
+    //     message: error.message,
+    //   });
+    // }
+
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
         status: 'error',
@@ -76,7 +84,7 @@ app.use(
       });
     }
 
-    console.log(error);
+    // console.log(error);
 
     return response.status(500).json({
       status: 'error',
@@ -86,5 +94,5 @@ app.use(
 );
 
 app.listen(3333, () => {
-  console.log('Server started on port 3333! 🏆');
+  // console.log('Server started on port 3333! 🏆');
 });
