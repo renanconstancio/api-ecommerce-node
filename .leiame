@@ -1,0 +1,12 @@
+COMO GERAR UM NOVO GIT
+* https://dev.to/alanfabricio/subindo-seu-repositorio-no-github-atraves-da-linha-de-comando-3kcm
+
+COMO CRIAR REAME DAORA
+* https://raullesteves.medium.com/github-como-fazer-um-readme-md-bonit%C3%A3o-c85c8f154f8
+
+COMO FAZER AS ALTERAÇÕES NO GIT
+
+* Para subir uma alteração, digite 'git add .\nomedapasta\aondeoarquivota.js'
+* Para gerar um commit 'git commit -m "Nome da alteração feita no momento"'
+* Adicionar e subir 'git push -u origin master'
+
