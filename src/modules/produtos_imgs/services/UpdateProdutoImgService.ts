@@ -5,23 +5,12 @@ import ProdutoImgRepository from '../typeorm/repositories/ProdutoImgRepository';
 
 interface IRequest {
   id: string;
-  id_produtos: number;
-  id_produtos_skus: number;
-  image: string;
   ordem: number;
-  excluir?: boolean;
 }
 
 class UpdateProdutoImgService {
   public async execute(
-    {
-      id,
-      id_produtos,
-      id_produtos_skus,
-      image,
-      ordem,
-      excluir = false,
-    }: IRequest,
+    { id, ordem }: IRequest,
     connect: string,
   ): Promise<ProdutoImg> {
     const imageRepository = getCustomRepository(ProdutoImgRepository, connect);
@@ -32,13 +21,7 @@ class UpdateProdutoImgService {
       throw new AppError('Sku not found.');
     }
 
-    imageRepository.merge(images, {
-      id_produtos: id_produtos,
-      id_produtos_skus: id_produtos_skus,
-      image: image,
-      ordem: ordem,
-      excluir: excluir,
-    });
+    imageRepository.merge(images, { ordem: ordem });
 
     await imageRepository.save(images);
 

@@ -9,21 +9,18 @@ interface IRequest {
   ordem: number;
   excluir?: boolean;
 }
+/**
+ * Classe implementa uma insersão de dados como array, podendo conter n dados de insersão
+ */
 
 class CreateProdutoImgService {
   public async execute(
-    { id_produtos, id_produtos_skus, image, ordem, excluir = false }: IRequest,
+    dataImgService: IRequest[],
     connect: string,
-  ): Promise<ProdutoImg> {
+  ): Promise<ProdutoImg[]> {
     const imgsRepository = getCustomRepository(ProdutoImgRepository, connect);
 
-    const sku = imgsRepository.create({
-      id_produtos,
-      id_produtos_skus,
-      image,
-      ordem,
-      excluir,
-    });
+    const sku = imgsRepository.create(dataImgService);
 
     await imgsRepository.save(sku);
 

@@ -6,6 +6,7 @@ import ShowProdutoImgService from '../services/ShowProdutoImgService';
 import CreateProdutoImgService from '../services/CreateProdutoImgService';
 import UpdateProdutoImgService from '../services/UpdateProdutoImgService';
 import DeleteProdutoImgService from '../services/DeleteProdutoImgService';
+import AppError from '@shared/errors/AppError';
 
 export default class ProdutosImgsController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -33,39 +34,44 @@ export default class ProdutosImgsController {
     // string de conexão
     const connect = request.connect;
 
-    const { id_produtos, id_produtos_skus, image, ordem, excluir } =
-      request.body;
-    const createProduto = new CreateProdutoImgService();
-    const marcaResp = await createProduto.execute(
-      {
-        id_produtos,
-        id_produtos_skus,
-        image,
-        ordem,
-        excluir,
-      },
+    const file = JSON.parse(JSON.stringify(request.files));
+
+    if (!file.length) {
+      throw new AppError('Select images.');
+    }
+
+    const createProdutoImgs = new CreateProdutoImgService();
+
+    const { id_produtos, id_produtos_skus, ordem } = request.body;
+
+    const returnFiles = file.map((file: { filename: string; path: string }) => {
+      return {
+        id_produtos: id_produtos,
+        id_produtos_skus: id_produtos_skus,
+        image: file.filename,
+        ordem: ordem,
+      };
+    });
+
+    const newProdutoImage = await createProdutoImgs.execute(
+      returnFiles,
       connect,
     );
 
-    return response.json(classToClass(marcaResp));
+    return response.json(classToClass(newProdutoImage));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     // string de conexão
     const connect = request.connect;
 
-    const { id_produtos, id_produtos_skus, image, ordem, excluir } =
-      request.body;
+    const { ordem } = request.body;
     const { id } = request.params;
     const updateImages = new UpdateProdutoImgService();
     const images = await updateImages.execute(
       {
         id,
-        id_produtos,
-        id_produtos_skus,
-        image,
         ordem,
-        excluir,
       },
       connect,
     );
