@@ -14,7 +14,7 @@ class ShowProdutoImgService {
     const image = await imagesRepository.findOne(id);
 
     if (!image) {
-      throw new AppError('Not found.');
+      throw new AppError(`Image Not found.`);
     }
 
     return image;

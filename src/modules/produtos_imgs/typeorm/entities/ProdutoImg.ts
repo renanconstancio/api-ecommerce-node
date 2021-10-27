@@ -12,7 +12,7 @@ class ProdutoImg {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('int')
+  @Column()
   id_produtos: number;
 
   @Column()

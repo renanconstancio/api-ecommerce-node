@@ -14,7 +14,7 @@ class ShowProdutoService {
     const produto = await produtosRepository.findOne(id);
 
     if (!produto) {
-      throw new AppError('Not found.');
+      throw new AppError('Product not found.');
     }
 
     return produto;

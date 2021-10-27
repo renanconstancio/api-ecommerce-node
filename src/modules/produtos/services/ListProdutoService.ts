@@ -1,7 +1,7 @@
+import { ParsedQs } from 'qs';
 import { getCustomRepository } from 'typeorm';
 import ProdutoRepository from '../typeorm/repositories/ProdutoRepository';
 import Produto from '../typeorm/entities/Produto';
-import { ParsedQs } from 'qs';
 
 interface IPaginateProduto {
   from: number;

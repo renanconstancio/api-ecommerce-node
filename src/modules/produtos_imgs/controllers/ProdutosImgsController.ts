@@ -13,8 +13,10 @@ export default class ProdutosImgsController {
     // string de conexão
     const connect = request.connect;
 
+    const { order } = request.query;
+
     const listImgs = new ListProdutoImgService();
-    const images = await listImgs.execute(connect);
+    const images = await listImgs.execute({ order }, connect);
 
     return response.json(classToClass(images));
   }
@@ -25,9 +27,9 @@ export default class ProdutosImgsController {
 
     const { id } = request.params;
     const showProductImg = new ShowProdutoImgService();
-    const image = await showProductImg.execute({ id }, connect);
+    const images = await showProductImg.execute({ id }, connect);
 
-    return response.json(classToClass(image));
+    return response.json(classToClass(images));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

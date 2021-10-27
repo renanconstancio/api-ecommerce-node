@@ -1,3 +1,4 @@
+import { ParsedQs } from 'qs';
 import { getCustomRepository } from 'typeorm';
 import ProdutoImg from '../typeorm/entities/ProdutoImg';
 import ProdutoImgRepository from '../typeorm/repositories/ProdutoImgRepository';
@@ -13,16 +14,26 @@ interface IPaginateProdutoImage {
   data: ProdutoImg[];
 }
 
+interface ISearch {
+  order?: string | ParsedQs | string[] | ParsedQs[] | undefined;
+}
+
 class ListProdutoImgService {
-  public async execute(connect: string): Promise<IPaginateProdutoImage> {
-    const skusRepository = getCustomRepository(ProdutoImgRepository, connect);
+  public async execute(
+    { order }: ISearch,
+    connect: string,
+  ): Promise<IPaginateProdutoImage> {
+    const imagesRepository = getCustomRepository(ProdutoImgRepository, connect);
 
-    const tmp = skusRepository
+    const tmp = imagesRepository
       .createQueryBuilder()
-      .where('excluir = :excluir', { excluir: 0 })
-      .orderBy({ ordem: 'ASC' });
+      .where('excluir = :excluir', { excluir: 0 });
 
-    const images = await tmp.cache(true).paginate();
+    if (order === 'asc') tmp.orderBy({ id: 'ASC' });
+
+    if (order === 'desc') tmp.orderBy({ id: 'DESC' });
+
+    const images = await tmp.paginate();
 
     return images as IPaginateProdutoImage;
   }
