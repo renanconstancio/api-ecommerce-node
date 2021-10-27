@@ -2,7 +2,7 @@ import { getCustomRepository } from 'typeorm';
 import ProdutoImg from '../typeorm/entities/ProdutoImg';
 import ProdutoImgRepository from '../typeorm/repositories/ProdutoImgRepository';
 
-interface IPaginateProdutoIma {
+interface IPaginateProdutoImage {
   from: number;
   to: number;
   per_page: number;
@@ -14,7 +14,7 @@ interface IPaginateProdutoIma {
 }
 
 class ListProdutoImgService {
-  public async execute(connect: string): Promise<IPaginateProdutoIma> {
+  public async execute(connect: string): Promise<IPaginateProdutoImage> {
     const skusRepository = getCustomRepository(ProdutoImgRepository, connect);
 
     const tmp = skusRepository
@@ -24,7 +24,7 @@ class ListProdutoImgService {
 
     const images = await tmp.cache(true).paginate();
 
-    return images as IPaginateProdutoIma;
+    return images as IPaginateProdutoImage;
   }
 }
 
