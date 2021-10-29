@@ -9,6 +9,11 @@ interface IUploadConfig {
   directory: string;
   multer: {
     storage: StorageEngine;
+    fileFilter: (
+      request: string,
+      file: { mimetype: string },
+      cb: (arg0: AppError | null, arg1: boolean) => void,
+    ) => void;
   };
   config: {
     aws: {
@@ -26,17 +31,6 @@ export default {
   tmpFolder,
   multer: {
     limits: { fileSize: 2000000 },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    fileFilter(req: any, file: { mimetype: string }, cb: any) {
-      if (!file.mimetype.match(/image.*/)) {
-        cb(
-          new AppError('Image uploaded is not of type jpg/jpeg/png or gif'),
-          false,
-        );
-      } else {
-        cb(null, true);
-      }
-    },
     storage: multer.diskStorage({
       destination: tmpFolder,
       filename(request, file, callback) {
@@ -47,6 +41,21 @@ export default {
         callback(null, filename);
       },
     }),
+
+    fileFilter(request: string, file: { mimetype: string }, cb) {
+      const isAccepted = ['image/png', 'image/jpg', 'image/jpeg'].find(
+        extAccpt => extAccpt === file.mimetype.toLowerCase(),
+      );
+
+      if (isAccepted) {
+        cb(null, true);
+      } else {
+        cb(
+          new AppError('Image uploaded is not of type jpg,jpeg or png'),
+          false,
+        );
+      }
+    },
   },
   config: {
     aws: {
