@@ -42,7 +42,7 @@ export default {
       },
     }),
 
-    fileFilter(request: string, file: { mimetype: string }, cb) {
+    fileFilter(request: string, file: { mimetype: string }, cb: any) {
       const isAccepted = ['image/png', 'image/jpg', 'image/jpeg'].find(
         extAccpt => extAccpt === file.mimetype.toLowerCase(),
       );
