@@ -9,11 +9,6 @@ interface IUploadConfig {
   directory: string;
   multer: {
     storage: StorageEngine;
-    fileFilter: (
-      request: string,
-      file: { mimetype: string },
-      cb: (arg0: AppError | null, arg1: boolean) => void,
-    ) => void;
   };
   config: {
     aws: {
