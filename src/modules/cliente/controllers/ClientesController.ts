@@ -45,8 +45,8 @@ export default class ClientesController {
     const createCliente = new CreateClienteService();
     const cliente = await createCliente.execute(
       {
-        nome,
-        email,
+        nome: nome.trim(),
+        email: email.trim(),
         senha,
         cnpj,
         ie,
