@@ -7,10 +7,15 @@ import { errors } from 'celebrate';
 import { pagination } from 'typeorm-pagination';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
+import { ValidationError } from 'joi';
 import '@shared/typeorm';
 
 import uploadConfig from '@config/upload';
 // import rateLimiter from '@shared/http/middlewares/rateLimiter';
+
+interface ValidationErrors {
+  [key: string]: string[];
+}
 
 const app = express();
 
@@ -29,53 +34,15 @@ app.use(errors());
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
-    // if (isCelebrateError(error)) {
-    //   let celebrate_error = null;
-    //   error.details.forEach(err => {
-    //     celebrate_error.push({
-    //       message: err.details[0].message,
-    //     });
-    //   });
+    if (error instanceof ValidationError) {
+      const errors: ValidationErrors = {};
 
-    //   console.log(celebrate_error);
+      error.details.forEach(err => {
+        errors[err.path] = err.errors;
+      });
 
-    //   return response.status(400).json({
-    //     status: 400,
-    //     message: `celebrate_error[0].message`,
-    //   });
-    // }
-
-    // if (error instanceof CelebrateError) {
-    //   const validation = {};
-    //   error.details.forEach((err, i) => {
-    //     validation[i] = {
-    //       suku: err,
-    //     };
-    //   });
-    //   for (const [segment, joiError] of error.details.entries()) {
-    //     validation[segment] = {
-    //       suku: 'skus',
-    //     };
-    //     // joiError.details.map(err => {
-    //     //   // console.log('segment: ', segment);
-    //     //   // return err.message;
-    //     // });
-    //   }
-
-    // console.log(validation);
-
-    //   return response.status(400).json({
-    //     status: 'error',
-    //     message: 'error.message',
-    //   });
-    // }
-
-    // if (error instanceof multer.MulterError) {
-    //   return response.status(401).json({
-    //     status: 'error',
-    //     message: error.message,
-    //   });
-    // }
+      return response.status(400).json({ message: 'validation fails', errors });
+    }
 
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
@@ -84,7 +51,7 @@ app.use(
       });
     }
 
-    // console.log(error);
+    console.log('Error Server: %O', error);
 
     return response.status(500).json({
       status: 'error',
@@ -93,9 +60,9 @@ app.use(
   },
 );
 
-app.use('/', (request, response) => {
-  return response.status(200).json('Server started');
-});
+// app.use('/', (request, response) => {
+//   return response.status(200).json('Server started');
+// });
 
 app.listen(3333, () => {
   console.log('Server started on port 3333! 🏆');

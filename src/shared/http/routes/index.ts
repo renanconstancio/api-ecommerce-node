@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import usersRouter from '@modules/users/routes/users.routes';
 import tokenStoreRouter from '@modules/tokens_stores/routes/tokens_stores.routes';
+import categoriasRouter from '@modules/categorias/routes/categorias.routes';
 import marcasRouter from '@modules/marca/routes/marcas.routes';
 import clientesRouter from '@modules/cliente/routes/clientes.routes';
 import clientesEnderecosRouter from '@modules/cliente_endereco/routes/clientes_enderecos.routes';
@@ -17,6 +18,8 @@ routes.use('/v1/authstore', tokenStoreRouter);
 routes.use('/v1/auth', usersRouter);
 
 routes.use('/v1/marcas', marcasRouter);
+
+routes.use('/v1/categorias', categoriasRouter);
 
 routes.use('/v1/clientes', clientesRouter);
 
