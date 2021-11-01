@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateClientesEnderecos1629995433788
   implements MigrationInterface
@@ -6,109 +6,109 @@ export class CreateClientesEnderecos1629995433788
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "clientes_enderecos",
+        name: 'clientes_enderecos',
         columns: [
           {
-            name: "id",
-            type: "int",
+            name: 'id',
+            type: 'int',
             isPrimary: true,
             isGenerated: true,
-            generationStrategy: "increment",
+            generationStrategy: 'increment',
           },
           {
-            name: "id_clientes",
-            type: "int",
+            name: 'id_clientes',
+            type: 'int',
             isNullable: true,
           },
           {
-            name: "nome_endereco",
-            type: "varchar",
-            length: "25",
+            name: 'nome_endereco',
+            type: 'varchar',
+            length: '25',
           },
           {
-            name: "nome_recebedor",
-            type: "varchar",
-            length: "30",
+            name: 'nome_recebedor',
+            type: 'varchar',
+            length: '30',
           },
           {
-            name: "endereco",
-            type: "varchar",
-            length: "72",
+            name: 'endereco',
+            type: 'varchar',
+            length: '72',
           },
           {
-            name: "nr",
-            type: "varchar",
-            length: "8",
+            name: 'nr',
+            type: 'varchar',
+            length: '8',
           },
           {
-            name: "bairro",
-            type: "varchar",
-            length: "50",
+            name: 'bairro',
+            type: 'varchar',
+            length: '50',
           },
           {
-            name: "complemento",
-            type: "varchar",
-            length: "30",
+            name: 'complemento',
+            type: 'varchar',
+            length: '30',
           },
           {
-            name: "referencia",
-            type: "varchar",
-            length: "60",
+            name: 'referencia',
+            type: 'varchar',
+            length: '60',
           },
           {
-            name: "cidade",
-            type: "varchar",
-            length: "36",
+            name: 'cidade',
+            type: 'varchar',
+            length: '36',
           },
           {
-            name: "uf",
-            type: "varchar",
-            length: "2",
+            name: 'uf',
+            type: 'varchar',
+            length: '2',
           },
           {
-            name: "cep",
-            type: "varchar",
-            length: "9",
+            name: 'cep',
+            type: 'varchar',
+            length: '9',
           },
           {
-            name: "ativo",
-            type: "boolean",
+            name: 'ativo',
+            type: 'boolean',
             default: false,
           },
           {
-            name: "excluir",
-            type: "boolean",
+            name: 'excluir',
+            type: 'boolean',
             default: false,
           },
           {
-            name: "created_at",
-            type: "datetime",
+            name: 'created_at',
+            type: 'datetime',
             isNullable: true,
           },
           {
-            name: "updated_at",
-            type: "datetime",
+            name: 'updated_at',
+            type: 'datetime',
             isNullable: true,
           },
         ],
         foreignKeys: [
           {
-            name: "FK_ID_CLIENTES_ENDERECO",
-            referencedTableName: "clientes",
-            referencedColumnNames: ["id"],
-            columnNames: ["id_clientes"],
-            onDelete: "CASCADE",
-            onUpdate: "CASCADE",
+            name: 'FK_ID_CLIENTES_ENDERECO',
+            referencedTableName: 'clientes',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_clientes'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
           },
         ],
         indices: [
           {
-            name: "IDX_CLIENTES_ENDERECOS",
-            columnNames: ["excluir", "ativo"],
+            name: 'IDX_CLIENTES_ENDERECOS',
+            columnNames: ['excluir', 'ativo'],
           },
         ],
       }),
-      true
+      true,
     );
 
     // await queryRunner.createIndex(
@@ -133,6 +133,6 @@ export class CreateClientesEnderecos1629995433788
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("clientes_enderecos", true, true, true);
+    await queryRunner.dropTable('clientes_enderecos', true, true, true);
   }
 }

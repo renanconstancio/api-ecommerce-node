@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateProdutoImg1631300986030 implements MigrationInterface {
+export class Categorias1635770778912 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'produtos_imgs',
+        name: 'categorias',
         columns: [
           {
             name: 'id',
@@ -14,24 +14,42 @@ export class CreateProdutoImg1631300986030 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'id_produtos',
+            name: 'id_categorias',
             type: 'int',
             isNullable: true,
           },
           {
-            name: 'id_produtos_skus',
-            type: 'int',
-            isNullable: true,
-          },
-          {
-            name: 'image',
+            name: 'categoria',
             type: 'varchar',
-            length: '36',
+            length: '46',
+          },
+          {
+            name: 'description',
+            type: 'varchar',
+            length: '255',
+            isNullable: true,
+          },
+          {
+            name: 'keywords',
+            type: 'varchar',
+            length: '155',
+            isNullable: true,
+          },
+          {
+            name: 'icon',
+            type: 'varchar',
+            length: '32',
+            isNullable: true,
           },
           {
             name: 'ordem',
-            type: 'boolean',
+            type: 'int',
             default: false,
+          },
+          {
+            name: 'visivel',
+            type: 'boolean',
+            default: true,
           },
           {
             name: 'excluir',
@@ -51,26 +69,18 @@ export class CreateProdutoImg1631300986030 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FK_ID_PRODUTOS_IMGS',
-            referencedTableName: 'produtos',
+            name: 'FK_ID_CATEGORIAS',
+            referencedTableName: 'categorias',
             referencedColumnNames: ['id'],
-            columnNames: ['id_produtos'],
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-          },
-          {
-            name: 'FK_ID_PRODUTOS_SKUS_IMGS',
-            referencedTableName: 'produtos_skus',
-            referencedColumnNames: ['id'],
-            columnNames: ['id_produtos_skus'],
+            columnNames: ['id_categorias'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },
         ],
         indices: [
           {
-            name: 'IDX_PRODUTOS_IMGS',
-            columnNames: ['ordem', 'excluir'],
+            name: 'IDX_CATEGORIAS',
+            columnNames: ['visivel', 'ordem', 'excluir'],
           },
         ],
       }),
@@ -79,6 +89,6 @@ export class CreateProdutoImg1631300986030 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('produtos_imgs');
+    await queryRunner.dropTable('categorias');
   }
 }
