@@ -2,39 +2,20 @@ import { getCustomRepository } from 'typeorm';
 import Menu from '../typeorm/entities/Menu';
 import MenuRepository from '../typeorm/repositories/MenuRepository';
 
-interface IPaginateMenu {
-  from: number;
-  to: number;
-  per_page: number;
-  total: number;
-  current_page: number;
-  prev_page: number | null;
-  next_page: number | null;
-  data: Menu[];
-}
-
 class ListMenuService {
-  public async execute(connect: string): Promise<IPaginateMenu> {
-    const categoriasRepository = getCustomRepository(MenuRepository, connect);
+  public async execute(connect: string): Promise<Menu[]> {
+    const menusRepository = getCustomRepository(MenuRepository, connect);
 
-    const tmp = categoriasRepository
-      .createQueryBuilder('categorias')
-      .leftJoinAndSelect(
-        'categorias.children',
-        'categorias_b',
-        'categorias_b.excluir = 0',
-      )
-      .andWhere(
-        'categorias.excluir = :excluir and categorias.id_categorias IS NULL',
-        { excluir: 0 },
-      );
+    const tmp = menusRepository
+      .createQueryBuilder('Menus')
+      .innerJoinAndSelect('Menus.categoria', 'MenusA')
+      .innerJoinAndSelect('Menus.children', 'MenusB')
+      .innerJoinAndSelect('MenusB.categoria', 'MenusC');
 
-    tmp.addOrderBy('categorias.ordem', 'DESC');
-    tmp.addOrderBy('categorias_b.ordem', 'ASC');
+    // console.log('SQL: %s', tmp.getSql());
 
-    const categorias = await tmp.paginate();
-
-    return categorias as IPaginateMenu;
+    const categorias = await tmp.cache(true).getMany();
+    return categorias as Menu[];
   }
 }
 

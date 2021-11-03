@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import ListMenuService from '../services/ListMenuService';
-import ShowMenuService from '../services/ShowMenuService';
 import UpdateMenuService from '../services/UpdateMenuService';
 import DeleteMenuService from '../services/DeleteMenuService';
 import CreateMenuService from '../services/CreateMenuService';
@@ -12,59 +11,38 @@ export default class MenusController {
     const connect = request.connect;
 
     const listMenus = new ListMenuService();
-    const categorias = await listMenus.execute(connect);
+    const menus = await listMenus.execute(connect);
 
-    return response.json(classToClass(categorias));
-  }
-
-  public async show(request: Request, response: Response): Promise<Response> {
-    const connect = request.connect;
-    const { id } = request.params;
-    const showMenu = new ShowMenuService();
-    const marca = await showMenu.execute({ id }, connect);
-
-    return response.json(classToClass(marca));
+    return response.json(classToClass(menus));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
     const connect = request.connect;
+
     const { id_categorias, id_produtos } = request.body;
+
     const createMenu = new CreateMenuService();
-    const categoriaResponse = await createMenu.execute(
+
+    const menuResponse = await createMenu.execute(
       {
         id_categorias,
         id_produtos,
       },
       connect,
     );
-    return response.json(classToClass(categoriaResponse));
+    return response.json(classToClass(menuResponse));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const connect = request.connect;
-    const {
-      id_categorias,
-      categoria,
-      description,
-      keywords,
-      icon,
-      ordem,
-      visivel,
-      excluir,
-    } = request.body;
+    const { id_categorias, id_produtos } = request.body;
     const { id } = request.params;
     const updateMarca = new UpdateMenuService();
     const marcaRes = await updateMarca.execute(
       {
         id,
         id_categorias,
-        categoria,
-        description,
-        keywords,
-        icon,
-        ordem,
-        visivel,
-        excluir,
+        id_produtos,
       },
       connect,
     );

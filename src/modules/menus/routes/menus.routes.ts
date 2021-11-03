@@ -1,68 +1,48 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
-import CategoriasController from '../controllers/CategoriasController';
+import MenusController from '../controllers/MenusController';
 
-const categoriasRouter = Router();
-const categoriasController = new CategoriasController();
+const menusRouter = Router();
+const menusController = new MenusController();
 
-categoriasRouter.use(isAuthenticated);
+menusRouter.use(isAuthenticated);
 
-categoriasRouter.get('/', categoriasController.index);
+menusRouter.get('/', menusController.index);
 
-categoriasRouter.get(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().required(),
-    },
-  }),
-  categoriasController.show,
-);
-
-categoriasRouter.post(
+menusRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      id_categorias: Joi.number().allow(false),
-      categoria: Joi.string().required(),
-      description: Joi.string().allow(false),
-      keywords: Joi.string().allow(false),
-      icon: Joi.string().allow(false),
-      ordem: Joi.number().allow(0),
-      visivel: Joi.boolean().allow(true),
+      id_categorias: Joi.number().required(),
+      id_produtos: Joi.number().required(),
     },
   }),
-  categoriasController.create,
+  menusController.create,
 );
 
-categoriasRouter.put(
+menusRouter.put(
   '/:id',
   celebrate({
     [Segments.BODY]: {
-      id_categorias: Joi.number().allow(false),
-      categoria: Joi.string().required(),
-      description: Joi.string().allow(false),
-      keywords: Joi.string().allow(false),
-      icon: Joi.string().allow(false),
-      ordem: Joi.number().allow(0),
-      visivel: Joi.boolean().allow(true),
+      id_categorias: Joi.number().required(),
+      id_produtos: Joi.number().required(),
     },
     [Segments.PARAMS]: {
       id: Joi.number().required(),
     },
   }),
-  categoriasController.update,
+  menusController.update,
 );
 
-categoriasRouter.delete(
+menusRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().required(),
     },
   }),
-  categoriasController.delete,
+  menusController.delete,
 );
 
-export default categoriasRouter;
+export default menusRouter;
