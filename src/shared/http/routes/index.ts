@@ -8,6 +8,7 @@ import clientesEnderecosRouter from '@modules/cliente_endereco/routes/clientes_e
 import produtosRouter from '@modules/produtos/routes/produtos.routes';
 import produtoSkusRouter from '@modules/produtos_skus/routes/produtos_skus.routes';
 import produtoImgsRouter from '@modules/produtos_imgs/routes/produtos_imgs.routes';
+import menusRouter from '@modules/menus/routes/menus.routes';
 
 const routes = Router();
 
@@ -16,6 +17,8 @@ routes.use('/v1/authstore', tokenStoreRouter);
 
 // authenticate user
 routes.use('/v1/auth', usersRouter);
+
+routes.use('/v1/menus', menusRouter);
 
 routes.use('/v1/marcas', marcasRouter);
 
