@@ -4,13 +4,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
+  TreeChildren,
+  TreeParent,
   JoinColumn,
-  ManyToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-@Entity('categorias')
+@Entity('categorias', { orderBy: { ordem: 'ASC' } })
 class Categoria {
   @PrimaryGeneratedColumn()
   id: number;
@@ -46,21 +46,17 @@ class Categoria {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @TreeChildren()
+  @JoinColumn({ name: 'id' })
+  children: Categoria[];
+
+  @TreeParent()
   @JoinColumn({ name: 'id_categorias' })
-  @ManyToOne(() => Categoria, (categoria: Categoria) => categoria.children, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: true,
-  })
   parent: Categoria;
 
-  @JoinColumn({ name: 'id' })
-  @OneToMany(() => Categoria, (categorias: Categoria) => categorias.parent, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    nullable: true,
-  })
-  children: Categoria[];
+  // @JoinColumn({ name: 'id' })
+  // @OneToOne(() => Menu, (menu: Menu) => menu.categoria.children)
+  // childrenmenu: Menu;
 }
 
 export default Categoria;

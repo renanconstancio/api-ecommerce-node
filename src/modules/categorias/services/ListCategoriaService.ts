@@ -21,7 +21,7 @@ interface ISearch {
 
 class ListCategoriaService {
   public async execute(
-    { categoria, order = 'DESC' }: ISearch,
+    { categoria, order = 'ASC' }: ISearch,
     connect: string,
   ): Promise<IPaginateCategoria> {
     const categoriasRepository = getCustomRepository(
@@ -41,10 +41,11 @@ class ListCategoriaService {
         { excluir: 0 },
       );
 
-    if (categoria)
+    if (categoria) {
       tmp.andWhere('categorias.categoria like :categoria', {
         categoria: categoria,
       });
+    }
 
     if (order === 'DESC') {
       tmp.addOrderBy('categorias.ordem', 'DESC');
