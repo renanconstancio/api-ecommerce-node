@@ -14,6 +14,11 @@ export class Menus1635796296792 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
+            name: 'id_menus',
+            type: 'int',
+            isNullable: true,
+          },
+          {
             name: 'id_categorias',
             type: 'int',
             isNullable: true,
@@ -36,7 +41,15 @@ export class Menus1635796296792 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FK_ID_CATEGORIAS',
+            name: 'FK_ID_MENUS',
+            referencedTableName: 'menus',
+            referencedColumnNames: ['id'],
+            columnNames: ['id_menus'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+          {
+            name: 'FK_ID_MENUSCATEGORIAS',
             referencedTableName: 'categorias',
             referencedColumnNames: ['id'],
             columnNames: ['id_categorias'],
@@ -44,7 +57,7 @@ export class Menus1635796296792 implements MigrationInterface {
             onUpdate: 'CASCADE',
           },
           {
-            name: 'FK_ID_PRODUTOS',
+            name: 'FK_ID_MENUSPRODUTOS',
             referencedTableName: 'produtos',
             referencedColumnNames: ['id'],
             columnNames: ['id_produtos'],
