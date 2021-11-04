@@ -34,16 +34,16 @@ class Menu {
   @Exclude()
   updated_at: Date;
 
-  @TreeChildren()
-  @JoinColumn({ name: 'id' })
-  children: Menu[];
-
   @TreeParent()
   @JoinColumn({ name: 'id_menus' })
   parent: Menu;
 
-  @JoinColumn({ name: 'id_categorias' })
+  @TreeChildren()
+  @JoinColumn({ name: 'id' })
+  children: Menu[];
+
   @OneToOne(() => Categoria, (categoria: Categoria) => categoria.id)
+  @JoinColumn({ name: 'id_categorias' })
   categoria: Categoria;
 }
 
