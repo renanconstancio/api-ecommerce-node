@@ -53,10 +53,6 @@ class Categoria {
   @TreeParent()
   @JoinColumn({ name: 'id_categorias' })
   parent: Categoria;
-
-  // @JoinColumn({ name: 'id' })
-  // @OneToOne(() => Menu, (menu: Menu) => menu.categoria.children)
-  // childrenmenu: Menu;
 }
 
 export default Categoria;
