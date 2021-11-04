@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import ClienteEndereco from '@modules/cliente_endereco/typeorm/entities/ClienteEndereco';
 
 @Entity('clientes')
 class Cliente {
@@ -58,6 +61,13 @@ class Cliente {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(
+    () => ClienteEndereco,
+    (address: ClienteEndereco) => address.client,
+  )
+  @JoinColumn({ name: 'id_clientes' })
+  address: ClienteEndereco[];
 }
 
 export default Cliente;

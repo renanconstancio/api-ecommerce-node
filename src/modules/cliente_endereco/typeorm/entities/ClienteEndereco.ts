@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Cliente from '@modules/cliente/typeorm/entities/Cliente';
 import { Exclude } from 'class-transformer';
 
 @Entity('clientes_enderecos')
@@ -57,6 +60,10 @@ class ClienteEndereco {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToOne(() => Cliente, (cliente: Cliente) => cliente.address)
+  @JoinColumn({ name: 'id' })
+  client: Cliente;
 }
 
 export default ClienteEndereco;

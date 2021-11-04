@@ -25,8 +25,11 @@ class ListClienteService {
     //   await redisCache.save('api-MARCA_LIST', marcas);
     // }
 
-    const marcas = await clientesRepository.createQueryBuilder().paginate();
-    return marcas as IPaginateCliente;
+    const clientes = await clientesRepository
+      .createQueryBuilder('Cliente')
+      .innerJoinAndSelect('Cliente.address', 'AddressC')
+      .paginate();
+    return clientes as IPaginateCliente;
   }
 }
 
