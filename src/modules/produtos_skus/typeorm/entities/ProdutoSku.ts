@@ -2,10 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import Produto from '@modules/produtos/typeorm/entities/Produto';
+import ProdutoImg from '@modules/produtos_imgs/typeorm/entities/ProdutoImg';
 
 @Entity('produtos_skus')
 class ProdutoSku {
@@ -60,6 +65,14 @@ class ProdutoSku {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToOne(() => Produto, (prod: Produto) => prod.skus)
+  @JoinColumn({ name: 'id_produtos' })
+  product: Produto;
+
+  @OneToMany(() => ProdutoImg, (img: ProdutoImg) => img.skus)
+  @JoinColumn({ name: 'id_produtos_skus' })
+  skuimgs: ProdutoImg[];
 }
 
 export default ProdutoSku;
