@@ -27,10 +27,22 @@ class ListProdutoService {
     const produtosRepository = getCustomRepository(ProdutoRepository, connect);
 
     const tmp = produtosRepository
-      .createQueryBuilder()
-      .where('excluir = :excluir', { excluir: 0 });
+      .createQueryBuilder('Prod')
+      .innerJoinAndSelect('Prod.brand', 'BrandP')
+      .innerJoinAndSelect('Prod.skus', 'SkuP')
+      .leftJoinAndSelect(
+        'SkuP.skuimgs',
+        'SkuPImg',
+        'SkuPImg.id_produtos_skus IS NOT NULL',
+      )
+      .leftJoinAndSelect(
+        'Prod.prodimgs',
+        'ProdImg',
+        'ProdImg.id_produtos_skus IS NULL',
+      )
+      .where('Prod.excluir = :excluir', { excluir: 0 });
 
-    if (nome) tmp.andWhere('nome like :nome', { nome: nome });
+    if (nome) tmp.andWhere('Prod.nome like :nome', { nome: nome });
 
     if (order_nome === 'asc') tmp.orderBy({ nome: 'ASC' });
 
