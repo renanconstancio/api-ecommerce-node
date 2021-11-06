@@ -28,8 +28,6 @@ class ShowProdutoService {
       .where('Prod.id = :id', { id: id })
       .getOne();
 
-    // const produto = await produtosRepository.findOne(id);
-
     if (!produto) {
       throw new AppError('Product not found.');
     }
