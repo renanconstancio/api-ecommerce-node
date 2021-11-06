@@ -44,9 +44,9 @@ class ListProdutoService {
 
     if (nome) tmp.andWhere('Prod.nome like :nome', { nome: nome });
 
-    if (order_nome === 'asc') tmp.orderBy({ nome: 'ASC' });
+    if (order_nome === 'asc') tmp.addOrderBy('Prod.nome', 'ASC');
 
-    if (order_nome === 'desc') tmp.orderBy({ nome: 'DESC' });
+    if (order_nome === 'desc') tmp.addOrderBy('Prod.nome', 'DESC');
 
     const produtos = await tmp.cache(true).paginate();
 
