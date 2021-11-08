@@ -3,7 +3,6 @@ import { sign } from 'jsonwebtoken';
 import { compare } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
 import authConfig from '@config/auth';
-import Cliente from '../../cliente/typeorm/entities/Cliente';
 import ClienteRepository from '../../cliente/typeorm/repositories/ClienteRepository';
 
 interface IRequest {
@@ -13,7 +12,6 @@ interface IRequest {
 }
 
 interface IResponse {
-  user: Cliente;
   token: string;
 }
 
@@ -46,10 +44,10 @@ class CreateSessionUserService {
         scope: [],
       },
       authConfig.jwt.secret,
+      { expiresIn: 3600 * 12 },
     );
 
     return {
-      user,
       token,
     };
   }
