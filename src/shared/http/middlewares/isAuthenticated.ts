@@ -4,10 +4,10 @@ import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
 interface ITokenPayload {
+  connect: string;
   iat: number;
   exp: number;
   sub: string;
-  connect: string;
   id: string;
 }
 
