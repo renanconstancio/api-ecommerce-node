@@ -37,14 +37,17 @@ app.use(
       Object.entries(errorBodyDetails).forEach(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ([, value]: [string, any | unknown | null]): void => {
-          validation[['field', value.path].join('.')] = value.message;
+          // validation[['field', value.path].join('.')] = value.message;
+          validation['field'] = value.path.join('.');
+          validation['message'] = value.message;
         },
       );
 
       return response.status(400).json({
         statusCode: 400,
-        status: 'error',
-        message: validation,
+        status: 'Bad Request',
+        message: 'request validation failed',
+        validation,
       });
     }
 
