@@ -6,11 +6,12 @@ const correiosURL = (type: string) =>
 export default class Api {
   static async clientSoap(): Promise<Client> {
     let url;
-    if (!process.env.APPHOM) {
+    if (process.env.APPHOM) {
       url = correiosURL('apphom');
     } else {
       url = correiosURL('apps');
     }
+
     return await createClientAsync(url);
   }
 }

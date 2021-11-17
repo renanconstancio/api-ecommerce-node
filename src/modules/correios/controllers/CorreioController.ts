@@ -1,10 +1,18 @@
 import { Request, Response } from 'express';
-import buscaCEP from '../sigep/buscaCep';
-import AppError from '@shared/errors/AppError';
+
 import ShowCorreioBuscaCep from '../services/ShowCorreioBuscaCep';
+import ShowCorreioBuscaCliente from '../services/ShowCorreioBuscaCliente';
+import ShowCorreioSolicitaEtiqueta from '../services/ShowCorreioSolicitaEtiqueta';
+import { ISIGEPCliente, ISIGEPSolicitaEtiqueta } from '../services/sigep/types';
 
 export default class CorreioController {
-  public async index(request: Request, response: Response): Promise<Response> {
+  /**
+   * Busca o cep
+   * @param request Resquisicao do servico
+   * @param response Resposta a ser respondida
+   * @returns
+   */
+  public async cep(request: Request, response: Response): Promise<Response> {
     const connect = request.connect;
     const { cep } = request.params;
 
@@ -12,6 +20,64 @@ export default class CorreioController {
     const cepShow = await showCorreioBuscaCep.execute({ cep }, connect);
 
     return response.json(cepShow);
+  }
+
+  /**
+   * Solicitar etiquetas
+   * @param request Resquisicao do servico
+   * @param response Resposta a ser respondida
+   * @returns
+   */
+  public async etiqueta(
+    request: Request<ISIGEPSolicitaEtiqueta>,
+    response: Response,
+  ): Promise<Response> {
+    const connect = request.connect;
+    const {
+      idServico,
+      identificador,
+      qtdEtiquetas,
+      tipoDestinatario,
+      usuario,
+      senha,
+    } = request.body;
+
+    const showSolicitaEtiqueta = new ShowCorreioSolicitaEtiqueta();
+    const cepShow = await showSolicitaEtiqueta.execute(
+      {
+        idServico: idServico,
+        identificador: identificador,
+        qtdEtiquetas: qtdEtiquetas,
+        tipoDestinatario: tipoDestinatario,
+        usuario: usuario,
+        senha: senha,
+      },
+      connect,
+    );
+
+    return response.json(cepShow);
+  }
+
+  /**
+   * Solicitar etiquetas
+   * @param request Resquisicao do servico
+   * @param response Resposta a ser respondida
+   * @returns
+   */
+  public async buscaCliente(
+    request: Request<ISIGEPCliente>,
+    response: Response,
+  ): Promise<Response> {
+    const connect = request.connect;
+    const { idContrato, idCartaoPostagem, usuario, senha } = request.body;
+
+    const showCorreioBuscaCliente = new ShowCorreioBuscaCliente();
+    const clienteShow = await showCorreioBuscaCliente.execute(
+      { idContrato: idContrato, idCartaoPostagem, usuario, senha },
+      connect,
+    );
+
+    return response.json(clienteShow);
   }
 
   // public async show(request: Request, response: Response): Promise<Response> {

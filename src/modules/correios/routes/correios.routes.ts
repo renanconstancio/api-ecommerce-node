@@ -9,16 +9,36 @@ const correiosController = new CorreioController();
 correiosRouter.use(isAuthenticated);
 
 correiosRouter.get(
-  '/:cep',
+  '/cep/:cep',
+  celebrate({
+    [Segments.PARAMS]: {
+      // cep: Joi.number().required(),
+      cep: Joi.string().required(),
+    },
+  }),
+  correiosController.cep,
+);
+
+correiosRouter.post(
+  '/etiquetas',
   // celebrate({
   //   [Segments.PARAMS]: {
-  //     cep: Joi.number().required(),
-  //     // cep: Joi.string()
-  //     //   .required()
-  //     //   .regex(/[0-9]\d{8}/),
+  //     // cep: Joi.number().required(),
+  //     cep: Joi.string().required(),
   //   },
   // }),
-  correiosController.index,
+  correiosController.etiqueta,
+);
+
+correiosRouter.post(
+  '/cliente',
+  // celebrate({
+  //   [Segments.PARAMS]: {
+  //     // cep: Joi.number().required(),
+  //     cep: Joi.string().required(),
+  //   },
+  // }),
+  correiosController.buscaCliente,
 );
 
 export default correiosRouter;

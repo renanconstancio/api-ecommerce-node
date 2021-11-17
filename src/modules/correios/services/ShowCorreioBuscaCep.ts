@@ -1,15 +1,18 @@
-import { ICep, ICep2 } from '../sigep/types';
+import { ISIGEPCep, ISIGEPCep2 } from './sigep/types';
+import buscaCEP from './sigep/buscaCep';
 import AppError from '@shared/errors/AppError';
-import buscaCEP from '../sigep/buscaCep';
 
 interface IRequest {
   cep: string;
 }
 
 class ShowCorreioBuscaCep {
-  public async execute({ cep }: IRequest, connect: string): Promise<ICep2> {
+  public async execute(
+    { cep }: IRequest,
+    connect: string,
+  ): Promise<ISIGEPCep2> {
     return await buscaCEP(cep)
-      .then((cepResp: ICep) => {
+      .then((cepResp: ISIGEPCep) => {
         const { cep, bairro, cidade, complemento2, end, uf } = cepResp;
 
         return {
@@ -19,12 +22,10 @@ class ShowCorreioBuscaCep {
           comp: complemento2,
           end: end,
           uf: uf,
-        } as ICep2;
+        } as ISIGEPCep2;
       })
-      .catch(() => {
-        throw new AppError(
-          'Invalid zip code or temporarily unavailable service.',
-        );
+      .catch(err => {
+        throw new AppError(err.root.Envelope.Body.Fault.faultstring);
       });
   }
 }

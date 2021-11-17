@@ -29,7 +29,7 @@ app.use(routes);
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
-    console.log('ERROR ALL: %O', error instanceof AppError);
+    // console.log('ERROR ALL: %O', error);
 
     if (isCelebrateError(error)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
