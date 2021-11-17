@@ -29,6 +29,8 @@ app.use(routes);
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
+    console.log('ERROR ALL: %O', error instanceof AppError);
+
     if (isCelebrateError(error)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const validation: any = {};
@@ -44,8 +46,8 @@ app.use(
       );
 
       return response.status(400).json({
-        statusCode: 400,
         status: 'Bad Request',
+        statusCode: 400,
         message: 'request validation failed',
         validation,
       });
@@ -53,13 +55,11 @@ app.use(
 
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({
-        statusCode: error.statusCode,
         status: 'error',
+        statusCode: error.statusCode,
         message: error.message,
       });
     }
-
-    // console.log('Error: %O', error);
 
     return response.status(500).json({
       status: 'error',
