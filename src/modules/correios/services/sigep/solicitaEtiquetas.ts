@@ -6,7 +6,7 @@ export default async function solicitaEtiquetas(
 ): Promise<string[]> {
   const client = await Api.clientSoap();
 
-  return new Promise((resolve, reject: any) => {
+  return new Promise((resolve, reject: any): void => {
     client.solicitaEtiquetas(
       requestData,
       (error: ISigepError, result: { return: string }) => {

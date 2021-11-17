@@ -6,7 +6,7 @@ export default async function buscaCliente(
 ): Promise<ISIGEPCliente> {
   const client = await Api.clientSoap();
 
-  return new Promise((resolve, reject: any) => {
+  return new Promise((resolve, reject: any): void => {
     client.buscaCliente(
       userData,
       (error: ISigepError, result: { return: ISIGEPCliente }) => {

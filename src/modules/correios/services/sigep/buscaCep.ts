@@ -4,7 +4,7 @@ import Api from './api';
 export default async function buscaCEP(cep: string): Promise<ISIGEPCep> {
   const client = await Api.clientSoap();
 
-  return new Promise((resolve, reject: any) => {
+  return new Promise((resolve, reject: any): void => {
     client.consultaCEP(
       { cep },
       (error: ISigepError, result: { return: ISIGEPCep }) => {
