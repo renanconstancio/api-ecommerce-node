@@ -9,6 +9,7 @@ import produtosRouter from '@modules/produtos/routes/produtos.routes';
 import produtoSkusRouter from '@modules/produtos_skus/routes/produtos_skus.routes';
 import produtoImgsRouter from '@modules/produtos_imgs/routes/produtos_imgs.routes';
 import menusRouter from '@modules/menus/routes/menus.routes';
+import correiosRouter from '@modules/correios/routes/correios.routes';
 
 const routes = Router();
 
@@ -33,5 +34,7 @@ routes.use('/v1/produtos', produtosRouter);
 routes.use('/v1/produtos_skus', produtoSkusRouter);
 
 routes.use('/v1/produtos_imgs', produtoImgsRouter);
+
+routes.use('/v1/correio', correiosRouter);
 
 export default routes;
