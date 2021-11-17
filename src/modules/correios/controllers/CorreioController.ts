@@ -1,3 +1,8 @@
+/**
+ * Seguindo modelo
+ * github.com/sthima/sigep
+ */
+
 import { Request, Response } from 'express';
 
 import ShowCorreioBuscaCep from '../services/ShowCorreioBuscaCep';
