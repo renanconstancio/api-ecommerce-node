@@ -130,6 +130,20 @@ export interface ISIGEPBuscaCliente {
   senha: string;
 }
 
+export interface ISIGEPFechaPlpVariosServicos {
+  idPlpCliente: number;
+  cartaoPostagem: string;
+  listaEtiquetas: Array<string>;
+  usuario: string;
+  senha: string;
+}
+
+export interface ISIGEPSolicitaXmlPlp {
+  idPlpMaster: number;
+  usuario: string;
+  senha: string;
+}
+
 export interface ISigepError {
   root: {
     Envelope: {

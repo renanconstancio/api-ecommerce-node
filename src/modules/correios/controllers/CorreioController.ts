@@ -9,6 +9,7 @@ import ShowCorreioBuscaCep from '../services/ShowCorreioBuscaCep';
 import ShowCorreioBuscaCliente from '../services/ShowCorreioBuscaCliente';
 import ShowCorreioSolicitaEtiqueta from '../services/ShowCorreioSolicitaEtiqueta';
 import { ISIGEPCliente, ISIGEPSolicitaEtiqueta } from '../services/sigep/types';
+import { etiquetasComDigito } from '../services/utils';
 
 export default class CorreioController {
   /**
@@ -60,7 +61,13 @@ export default class CorreioController {
       connect,
     );
 
-    return response.json(cepShow);
+    /**
+     * Na montagem do PLP no campo <numero_etiqueta> é necessário colocar o numero
+     * das etiquetas com o Dígito
+     */
+    const responseEtiquetasComDigito = etiquetasComDigito(cepShow);
+
+    return response.json(responseEtiquetasComDigito);
   }
 
   /**

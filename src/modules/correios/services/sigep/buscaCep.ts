@@ -1,5 +1,5 @@
-import { ISigepError, ISIGEPCep } from './types';
 import Api from './api';
+import { ISigepError, ISIGEPCep } from './types';
 
 export default async function buscaCEP(cep: string): Promise<ISIGEPCep> {
   const client = await Api.clientSoap();

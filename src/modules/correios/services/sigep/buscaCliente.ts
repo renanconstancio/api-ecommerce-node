@@ -1,5 +1,5 @@
-import { ISigepError, ISIGEPBuscaCliente, ISIGEPCliente } from './types';
 import Api from './api';
+import { ISigepError, ISIGEPBuscaCliente, ISIGEPCliente } from './types';
 
 export default async function buscaCliente(
   userData: ISIGEPBuscaCliente,
