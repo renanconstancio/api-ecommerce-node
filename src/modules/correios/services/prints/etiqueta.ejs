@@ -3,12 +3,173 @@
   <head>
     <meta charset='utf-8'>
     <title>Etiqueta</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background-color: #333;
+      }
 
+      #root {
+        width: 106.36mm;
+        height: 138.11mm;
+        background-color: #fff;
+      }
+
+      #barcode {
+        display: block;
+        width: 200px;
+        height: 100px;
+      }
+
+      #codeEtiqueta {
+        display: block;
+        max-width: 100%;
+        margin-left: 5mm;
+      }
+
+      .tpl-images {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 5mm;
+        align-content: center;
+      }
+
+      .tpl-destinatario {
+        display: flex;
+        align-items: flex-start;
+        border-top: 2px solid #000;
+        font: normal 11pt arial;
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+
+      .tpl-destinatario div {
+        padding-left: 5mm;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+
+      .tpl-destinatario span {
+        font-weight: bold;
+      }
+
+      .tpl-destinatario span.target {
+        text-transform: uppercase;
+        display: block;
+        padding: 4px;
+        padding-left: 3mm;
+        background-color: #000;
+        color: #fff;
+      }
+
+      .tpl-remetente {
+        display: flex;
+        align-items: flex-start;
+        border-top: 2px solid #000;
+        flex-direction: column;
+        justify-content: center;
+        font: normal 10pt arial;
+        padding: 2mm;
+        padding-left: 5mm;
+        margin-top: 3mm;
+      }
+
+      .tpl-remetente span {
+        font-weight: bold;
+      }
+
+      .tpl-info  {
+        padding-left: 5mm;
+        padding-right: 5mm;
+      }
+      .tpl-info p {
+        font: normal 9pt arial;
+        margin: 0;
+        border-bottom: .5mm solid #000;
+        margin-bottom: 1mm;
+      }
+
+    </style>
   </head>
-  <body style="background-color: black;">
-    <div>
-      <h1>Olá! Este é meu PDF gerado a partir de um HTML! :)</h1>
-      Minha variavel: <%= variavel %>
+  <body>
+
+    <div id="root">
+      <div class="tpl-images">
+        <img src="<%= imgLogo %>" id="imgLogo" style="width: 25mm; height: 25mm;">
+        <span id="qrCode"></span>
+        <img src="<%= imgService %>"id="imgServico" style="width: 20mm; height: 20mm;">
+      </div>
+
+      <div class="tpl-info">
+        <p><span>Recebedor:</span></p>
+        <p><span>Assinatura:</span><span>Documento:</span></p>
+      </div>
+
+      <img id="codeEtiqueta">
+
+      <div class="tpl-destinatario">
+        <span class="target">destinatário</span>
+        <div>
+          <% if (destinatario) { %>
+            <%= destinatario.destinatario %><br />
+            <%= destinatario.endereco %>, <%= destinatario.nr %><br />
+            <span><%= destinatario.cep %></span> <%= destinatario.cidade %>/<%= destinatario.uf %><br />
+            <%= destinatario.complemento %>
+          <% } %>
+          <img id="codeCepDestinatario">
+        </div>
+      </div>
+
+      <div class="tpl-remetente">
+        <% if (remetente) { %>
+          <span>Remetente:</span> <%= remetente.remetente %><br />
+          <%= remetente.remetente %>
+          <%= remetente.remetente %><br />
+          <span><%= remetente.cep %></span>
+        <% } %>
+      </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.8.0/JsBarcode.all.min.js"></script>
+
+    <script>
+      $(function () {
+
+        new QRCode(document.getElementById("qrCode"), {
+          text: "<%= codEtiqueta %>",
+          width: 98,
+          height: 98,
+          correctLevel: QRCode.CorrectLevel.H
+        });
+
+        JsBarcode("#codeEtiqueta", "<%= codEtiqueta %>", {
+          width: 2,
+          textPosition: "top",
+          fontOptions: "bold",
+          format: 'CODE128',
+          height: 75,
+          margin: 0,
+          marginTop: 5,
+          marginBottom: 5,
+          marginLeft: 10,
+          marginRight: 10,
+        });
+
+        JsBarcode("#codeCepDestinatario", "<%= destinatario.cep %>", {
+          format: 'CODE128',
+          height: 55,
+          width: 1,
+          margin: 0,
+          displayValue: false,
+        });
+
+      })
+    </script>
   </body>
 </html>

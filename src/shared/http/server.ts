@@ -20,6 +20,8 @@ app.use(express.json());
 
 app.use(pagination);
 
+app.use(express.static('public'));
+
 app.use('/files', express.static(uploadConfig.directory));
 
 app.use(routes);
@@ -29,7 +31,7 @@ app.use(routes);
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
-    // console.log('ERROR ALL: %O', error);
+    console.log('ERROR ALL: %O', error);
 
     if (isCelebrateError(error)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -73,5 +75,5 @@ app.use(
 // });
 
 app.listen(3333, () => {
-  console.log('Server started on port 3333! 🏆');
+  console.log('Server started on port 3333!');
 });
