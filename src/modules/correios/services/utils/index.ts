@@ -33,7 +33,7 @@ export function etiquetasRangeSemEspaco(etiquetas: Array<string>) {
   return etiquetasRange(etiquetas, false);
 }
 
-const etiquetasRange = (etiquetas: Array<string>, isDigit: boolean) => {
+export function etiquetasRange(etiquetas: Array<string>, isDigit: boolean) {
   const inicio = parseInt(etiquetas[0].substring(2, 10));
   const fim = parseInt(etiquetas[1].substring(2, 10));
   const prefix = etiquetas[0].substring(0, 2);
@@ -56,4 +56,4 @@ const etiquetasRange = (etiquetas: Array<string>, isDigit: boolean) => {
     }
   }
   return etiquetasList;
-};
+}

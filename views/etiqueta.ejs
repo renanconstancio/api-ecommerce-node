@@ -7,10 +7,12 @@
       html,
       body {
         margin: 0;
+        padding: 0;
         background-color: #333;
       }
 
       #root {
+        display: grid;
         width: 106.36mm;
         height: 138.11mm;
         background-color: #fff;
@@ -29,12 +31,13 @@
       }
 
       .tpl-images {
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-template-columns: 25mm 30.6mm 20mm 20mm;
+        /* align-items: center;
         flex-direction: row;
         justify-content: space-around;
         gap: 5mm;
-        align-content: center;
+        align-content: center; */
       }
 
       .tpl-destinatario {
@@ -99,12 +102,13 @@
 
     <div id="root">
       <div class="tpl-images">
-        <img src="<%= imgLogo %>" id="imgLogo" style="width: 25mm; height: 25mm;">
-        <span id="qrCode"></span>
-        <img src="<%= imgService %>"id="imgServico" style="width: 20mm; height: 20mm;">
+        <img src="<%= imgLogo %>" id="imgLogo" />
+        <img src="<%= qrCode %>" id="qrCode" />
+        <img src="<%= imgService %>"id="imgServico" />
       </div>
 
-      <div class="tpl-info">
+
+      <!-- <div class="tpl-info">
         <p><span>Recebedor:</span></p>
         <p><span>Assinatura:</span><span>Documento:</span></p>
       </div>
@@ -131,10 +135,10 @@
           <%= remetente.remetente %><br />
           <span><%= remetente.cep %></span>
         <% } %>
-      </div>
+      </div> -->
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.8.0/JsBarcode.all.min.js"></script>
 
@@ -170,6 +174,6 @@
         });
 
       })
-    </script>
+    </script> -->
   </body>
 </html>

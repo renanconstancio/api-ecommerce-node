@@ -1,8 +1,11 @@
+// https://github.com/waldsonvital/sigep-node
+
 import path from 'path';
 import ejs from 'ejs';
 import pdf from 'html-pdf';
 import bwipjs from 'bwip-js';
 import { Request, Response } from 'express';
+import { generateBarcode128 } from '../utils/generateBarcode128';
 
 export function printEtiquetas(request: Request, response: Response): void {
   const logoStoreTemplate = path.resolve(
@@ -13,18 +16,32 @@ export function printEtiquetas(request: Request, response: Response): void {
     'services',
     'prints',
   );
-  const ejsTemplate = path.resolve(__dirname, '..', '..', 'services', 'prints');
+  const ejsTemplate = path.resolve(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    '..',
+    '..',
+    'views',
+  );
   const htmlTemplate = `${ejsTemplate}/etiqueta.ejs`;
 
-  const teste = 'data:image/png;base64,';
+  const imgBase64 = 'data:image/png;base64,';
+
+  const barCode128 = generateBarcode128({ code: 'PK405950706BR' });
+
+  console.log(barcode);
 
   ejs.renderFile(
     htmlTemplate,
     {
       imgLogo: '/images/correios-logo.png',
       imgService: '/images/simbolo-sedex-expresso.png',
-      codEtiqueta: 'PK405950017BR',
-      variavel: teste,
+      codEtiqueta: `${imgBase64}${barCode128}`,
+      qrCode: barcode,
+      variavel: imgBase64,
+
       // Dados do destinatario
       destinatario: {
         destinatario: 'Renan Constancio',
@@ -35,6 +52,7 @@ export function printEtiquetas(request: Request, response: Response): void {
         uf: 'SP',
         cep: '14900-000',
       },
+
       // Dados do Remetente
       remetente: {
         remetente: 'asdf',

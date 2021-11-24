@@ -28,6 +28,9 @@ app.use(routes);
 
 // app.use(errors());
 
+// SETUP EJS
+app.set('view engine', 'ejs');
+
 app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
