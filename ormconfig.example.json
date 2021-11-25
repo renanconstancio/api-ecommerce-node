@@ -8,10 +8,10 @@
     "username": "datacont",
     "password": "dA@1262a855#",
     "database": "datacont_api_ecommerce",
-    "entities": ["./src/modules/**/typeorm/entities/*.ts"],
-    "migrations": ["./src/shared/typeorm/migrations/*.ts"],
+    "entities": ["./dist/modules/**/typeorm/entities/*.ts"],
+    "migrations": ["./dist/shared/typeorm/migrations/*.ts"],
     "cli": {
-      "migrationsDir": "./src/shared/typeorm/migrations"
+      "migrationsDir": "./dist/shared/typeorm/migrations"
     }
   },
   {
