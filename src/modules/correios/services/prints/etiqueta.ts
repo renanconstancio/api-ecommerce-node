@@ -31,15 +31,13 @@ export function printEtiquetas(request: Request, response: Response): void {
 
   const barCode128 = generateBarcode128({ code: 'PK405950706BR' });
 
-  console.log(barcode);
-
   ejs.renderFile(
     htmlTemplate,
     {
       imgLogo: '/images/correios-logo.png',
       imgService: '/images/simbolo-sedex-expresso.png',
       codEtiqueta: `${imgBase64}${barCode128}`,
-      qrCode: barcode,
+      qrCode: '',
       variavel: imgBase64,
 
       // Dados do destinatario
