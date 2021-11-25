@@ -18,16 +18,16 @@ interface IUploadConfig {
 }
 
 const uploadFolder = path.resolve(__dirname, '..', '..', 'uploads');
-const tmpFolder = path.resolve(__dirname, '..', '..', 'temp');
+const tmpFolder = path.resolve(__dirname, '..', '..', 'uploads');
 
 export default {
   driver: process.env.STORAGE_DRIVER,
   directory: uploadFolder,
-  tmpFolder,
+  // tmpFolder,
   multer: {
     limits: { fileSize: 2000000 },
     storage: multer.diskStorage({
-      destination: tmpFolder,
+      destination: uploadFolder,
       filename(request, file, callback) {
         const fileHash = crypto.randomBytes(16).toString('hex');
         const ext = path.extname(file.originalname);
@@ -54,7 +54,7 @@ export default {
   },
   config: {
     aws: {
-      bucket: 'api-vendas',
+      bucket: 'api-ecommerce',
     },
   },
 } as unknown as IUploadConfig;
