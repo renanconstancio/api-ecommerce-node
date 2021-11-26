@@ -1,0 +1,62 @@
+[
+  {
+    "name": "default",
+    "type": "mysql",
+    "host": "162.241.41.45",
+    "port": 3306,
+    "charset": "utf8",
+    "username": "datacont",
+    "password": "dA@1262a855#",
+    "database": "datacont_api_ecommerce",
+    "entities": ["./dist/modules/**/typeorm/entities/*.ts"],
+    "migrations": ["./dist/shared/typeorm/migrations/*.ts"],
+    "cli": {
+      "migrationsDir": "./dist/shared/typeorm/migrations"
+    }
+  },
+  {
+    "name": "default11",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "charset": "utf8",
+    "username": "root",
+    "password": "root",
+    "database": "ecomnode_db",
+    "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+    "migrations": ["./dist/shared/typeorm/migrations/*.js"],
+    "cli": {
+      "migrationsDir": "./dist/shared/typeorm/migrations"
+    }
+  },
+  {
+    "name": "ecomnodedb2",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "charset": "utf8",
+    "username": "root",
+    "password": "root",
+    "database": "ecomnode_db2",
+    "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+    "migrations": ["./dist/shared/typeorm/migrations/*.js"],
+    "cli": {
+      "migrationsDir": "./dist/shared/typeorm/migrations"
+    }
+  },
+  {
+    "name": "ecomnodedb3",
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "charset": "utf8",
+    "username": "root",
+    "password": "root",
+    "database": "ecomnode_db3",
+    "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+    "migrations": ["./dist/shared/typeorm/migrations/*.js"],
+    "cli": {
+      "migrationsDir": "./dist/shared/typeorm/migrations"
+    }
+  }
+]
