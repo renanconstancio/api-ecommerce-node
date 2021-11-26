@@ -2,6 +2,7 @@ import { ParsedQs } from 'qs';
 import { getCustomRepository } from 'typeorm';
 import ProdutoRepository from '../typeorm/repositories/ProdutoRepository';
 import Produto from '../typeorm/entities/Produto';
+// import redisCache from '@shared/cache/RedisCache';
 
 interface IPaginateProduto {
   from: number;
@@ -26,6 +27,14 @@ class ListProdutoService {
   ): Promise<IPaginateProduto> {
     const produtosRepository = getCustomRepository(ProdutoRepository, connect);
 
+    // const products = await redisCache.recover<IPaginateProduto>(
+    //   'api-PRODUCT_LIST',
+    // );
+
+    // if (products) {
+    //   return products as IPaginateProduto;
+    // }
+
     const tmp = produtosRepository
       .createQueryBuilder('Prod')
       .innerJoinAndSelect('Prod.brand', 'BrandP')
@@ -48,7 +57,9 @@ class ListProdutoService {
 
     if (order_nome === 'desc') tmp.addOrderBy('Prod.nome', 'DESC');
 
-    const produtos = await tmp.cache(true).paginate();
+    const produtos = await tmp.paginate();
+
+    // await redisCache.save('api-PRODUCT_LIST', produtos);
 
     return produtos as IPaginateProduto;
   }
