@@ -1,1 +1,1 @@
-web:node /dist/shared/http/server.js
+web: node /dist/shared/http/server.js
