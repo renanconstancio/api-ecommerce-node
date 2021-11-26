@@ -76,7 +76,7 @@ app.use(
 // app.use('/', (request, response) => {
 //   return response.status(200).json('Server started');
 // });
-
-app.listen(process.env.PORT || 3333, () => {
-  console.log(`Server started on port ${process.env.PORT}!`);
+const port = process.env.PORT || 3333;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}!`);
 });

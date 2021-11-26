@@ -1,1 +1,1 @@
-web: npm run build && node /dist/shared/http/server.js
+web: yarn build && node /dist/shared/http/server.js
