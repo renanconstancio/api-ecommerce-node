@@ -48,6 +48,7 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
+    "aws": "^0.0.3-2",
     "bcryptjs": "^2.4.3",
     "bwip-js": "^3.0.4",
     "celebrate": "^13.0.4",

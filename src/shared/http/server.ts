@@ -1,5 +1,5 @@
-import 'reflect-metadata';
 import 'dotenv/config';
+import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
@@ -73,7 +73,7 @@ app.use(
   },
 );
 
-const port = process.env.PORT || 3333;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}!`);
+const SERVE_PORT = process.env.PORT || 3333;
+app.listen(SERVE_PORT, () => {
+  console.log(`Server started on port ${SERVE_PORT}!`);
 });

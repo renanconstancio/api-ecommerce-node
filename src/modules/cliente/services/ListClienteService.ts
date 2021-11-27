@@ -27,8 +27,9 @@ class ListClienteService {
 
     const clientes = await clientesRepository
       .createQueryBuilder('Cliente')
-      .innerJoinAndSelect('Cliente.address', 'AddressC')
+      // .innerJoinAndSelect('Cliente.address', 'AddressC')
       .paginate();
+
     return clientes as IPaginateCliente;
   }
 }
