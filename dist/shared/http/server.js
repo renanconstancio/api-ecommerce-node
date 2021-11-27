@@ -1,8 +1,8 @@
 "use strict";
 
-require("reflect-metadata");
-
 require("dotenv/config");
+
+require("reflect-metadata");
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -22,13 +22,14 @@ require("../typeorm");
 
 var _upload = _interopRequireDefault(require("../../config/upload"));
 
+var _rateLimiter = _interopRequireDefault(require("./middlewares/rateLimiter"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import rateLimiter from '@shared/http/middlewares/rateLimiter';
 const app = (0, _express.default)();
 app.use((0, _cors.default)());
-app.use(_express.default.json()); // app.use(rateLimiter);
-
+app.use(_express.default.json());
+app.use(_rateLimiter.default);
 app.use(_typeormPagination.pagination);
 app.use(_express.default.static('public'));
 app.use('/files', _express.default.static(_upload.default.directory));
@@ -70,11 +71,8 @@ app.use( // eslint-disable-next-line @typescript-eslint/no-unused-vars
     status: 'error',
     message: 'Internal server error'
   });
-}); // app.use('/', (request, response) => {
-//   return response.status(200).json('Server started');
-// });
-
-const port = process.env.PORT || 3333;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}!`);
+});
+const SERVE_PORT = process.env.PORT || 3333;
+app.listen(SERVE_PORT, () => {
+  console.log(`Server started on port ${SERVE_PORT}!`);
 });
