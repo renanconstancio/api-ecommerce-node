@@ -1,6 +1,6 @@
 [
   {
-    "name": "default",
+    "name": "defaultqq",
     "type": "mysql",
     "host": "162.241.41.45",
     "port": 3306,
@@ -16,7 +16,7 @@
   },
 
   {
-    "name": "default11",
+    "name": "default",
     "type": "mysql",
     "host": "localhost",
     "port": 3306,
@@ -24,8 +24,8 @@
     "username": "root",
     "password": "root",
     "database": "ecomnode_db",
-    "entities": ["./src/modules/**/typeorm/entities/*.js"],
-    "migrations": ["./src/shared/typeorm/migrations/*.js"],
+    "entities": ["./src/modules/**/typeorm/entities/*.ts"],
+    "migrations": ["./src/shared/typeorm/migrations/*.ts"],
     "cli": {
       "migrationsDir": "./src/shared/typeorm/migrations"
     }
